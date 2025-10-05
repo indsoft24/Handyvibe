@@ -15,17 +15,17 @@
                             <li><a href="">Single Shop</a></li>
                         </ul>
                     </li>
-                    <li><a href="">About</a></li>
+                    <li><a href="{{ route('about') }}">About</a></li>
                     <li class="has-dropdown">
-                        <a href="">Services</a>
+                         <a href="{{ route('services') }}">Services</a>
                         <ul class="dropdown">
-                            <li><a href="#">Web Design</a></li>
-                            <li><a href="#">eCommerce</a></li>
+                            <li><a href="#">Home Solutions</a></li>
                             <li><a href="#">Branding</a></li>
-                            <li><a href="#">API</a></li>
+                            <li><a href="#">Car Washing</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="{{ route('product') }}">Products</a></li>
+                    <li><a href="{{ route('contact') }}">Contact</a></li>
                 </ul>
             </div>
             <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
