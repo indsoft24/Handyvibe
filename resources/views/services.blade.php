@@ -102,7 +102,7 @@
                     <div class="desc">
                         <h3>Expert Electrician Services</h3>
                         [cite_start]<p>Modern homes use advanced electrical appliances, and attempting repairs yourself can be life-threatening. [cite: 1] [cite_start]The HandyVibe company has a solution for all your problems. [cite: 1] [cite_start]If you need a residential electrician, you can get it done through the HandyVibe website within a reasonable budget. [cite: 1]</p>
-                        <p><a href="{{ route('products') }}" class="btn btn-primary btn-outline">Book Now</a></p>
+                        <p><a href="{{ route('product') }}" class="btn btn-primary btn-outline">Book Now</a></p>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                      <div class="desc">
                         <h3>Reliable Plumbing Solutions</h3>
                         [cite_start]<p>A leaking faucet is something no one can tolerate, especially at night, and local plumbers can cost a fortune. [cite: 1] [cite_start]In the future, if you ever need a plumber, just remember the HandyVibe company directly to get all kinds of services at a minimum price. [cite: 1]</p>
-                        <p><a href="{{ route('products') }}" class="btn btn-primary btn-outline">Book Now</a></p>
+                        <p><a href="{{ route('product') }}" class="btn btn-primary btn-outline">Book Now</a></p>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                     <div class="desc">
                         <h3>Skilled Carpentry Work</h3>
                         [cite_start]<p>A carpenter is an artist who can give a new look to your house. [cite: 1] [cite_start]For tasks like fixing a sticky door, a rotting window frame, or a damaged deck board, you'll need a carpenter. [cite: 1] [cite_start]You can directly book one by visiting the HandyVibe website. [cite: 1]</p>
-                        <p><a href="{{ route('products') }}" class="btn btn-primary btn-outline">Book Now</a></p>
+                        <p><a href="{{ route('product') }}" class="btn btn-primary btn-outline">Book Now</a></p>
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                      <div class="desc">
                         <h3>Convenient Car Washing</h3>
                         [cite_start]<p>Washing your car is a boring and time-consuming task. [cite: 1] [cite_start]Instead of waiting in lines or wasting time, get your car serviced right in your parking space with the help of HandyVibe company services. [cite: 1]</p>
-                        <p><a href="{{ route('products') }}" class="btn btn-primary btn-outline">Book Now</a></p>
+                        <p><a href="{{ route('product') }}" class="btn btn-primary btn-outline">Book Now</a></p>
                     </div>
                 </div>
             </div>
