@@ -37,7 +37,6 @@
                             <div class="product-grid" style="background-image:url({{ asset($relatedService['image']) }});">
                                 <div class="inner">
                                     <p>
-                                        {{-- Link to the dynamic page for this related service --}}
                                         <a href="{{ route('service.show', ['slug' => $relatedService['slug']]) }}" class="icon"><i class="icon-shopping-cart"></i></a>
                                         <a href="{{ route('service.show', ['slug' => $relatedService['slug']]) }}" class="icon"><i class="icon-eye"></i></a>
                                     </p>

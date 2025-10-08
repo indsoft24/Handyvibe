@@ -27,19 +27,19 @@
                     <div class="col-md-6">
                         <div class="desc">
                             <h3>Our Story & Purpose</h3>
-                            <p>HandyVibe is a reliable online resource that brings qualified experts to your doorstep. [cite: 3] Our mission is to connect with the maximum number of consumers and provide services with high-quality, standardized, and reliable services.  The concept is simple: whenever you need a service, you can receive quality assistance in minimal time, saving both time and money from the comfort of your home. [cite: 6]</p>
+                            <p>HandyVibe is a reliable online resource that brings qualified experts to your doorstep. Our mission is to connect with the maximum number of consumers and provide services with high-quality, standardized, and reliable services.  The concept is simple: whenever you need a service, you can receive quality assistance in minimal time, saving both time and money from the comfort of your home.</p>
                         </div>
                         <div class="desc">
-                            <h3>What We Do [cite: 11]</h3>
-                            <p>Our platform makes it simple for you to book essential services right to your door. [cite: 12] Our offerings span everything required to run a home and manage personal care: [cite: 13]</p>
+                            <h3>What We Do</h3>
+                            <p>Our platform makes it simple for you to book essential services right to your door. Our offerings span everything required to run a home and manage personal care:</p>
                              <ul>
-                                <li><strong>Home Solutions:</strong> Cleaning, pest control, plumbing, carpentry, painting, and appliance servicing and repair. [cite: 14]</li>
-                                <li><strong>Beauty and Health:</strong> Home services for skin care, hair care, and massage therapy. [cite: 15]</li>
+                                <li><strong>Home Solutions:</strong> Cleaning, pest control, plumbing, carpentry, painting, and appliance servicing and repair.</li>
+                                <li><strong>Beauty and Health:</strong> Home services for skin care, hair care, and massage therapy.</li>
                             </ul>
                         </div>
                          <div class="desc">
-                            <h3>How We Deliver Quality [cite: 16]</h3>
-                            <p>We manage the entire service experience to ensure quality and reliability. [cite: 17] All services are delivered by a network of trained, independent service professionals, ensuring every job meets a consistent standard of quality. [cite: 18, 19]</p>
+                            <h3>How We Deliver Quality</h3>
+                            <p>We manage the entire service experience to ensure quality and reliability. All services are delivered by a network of trained, independent service professionals, ensuring every job meets a consistent standard of quality.</p>
                         </div>
                     </div>
                     <div class="col-md-6">

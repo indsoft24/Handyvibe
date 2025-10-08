@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    /**
-     * Store all service data in a private property.
-     * In a real application, this would come from a database.
-     */
     private $services = [
         [
             'slug' => 'electrician',
@@ -61,27 +57,19 @@ class ServiceController extends Controller
         ],
     ];
 
-    /**
-     * Display a list of all services (for the product page).
-     */
     public function index()
     {
         return view('product', ['services' => $this->services]);
     }
 
-    /**
-     * Display a single service page based on its slug.
-     */
     public function show($slug)
     {
         $service = collect($this->services)->firstWhere('slug', $slug);
 
-        // If no service with that slug is found, show a 404 error page.
         if (!$service) {
             abort(404);
         }
 
-        // Get 3 other services for the "Related Services" section.
         $related = collect($this->services)->where('slug', '!=', $slug)->take(3);
 
         return view('single-service', [

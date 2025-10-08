@@ -30,14 +30,12 @@
                 </div>
             </div>
             <div class="row">
-                {{-- This loop will now dynamically create a grid for each service --}}
                 @foreach ($services as $service)
                     <div class="col-md-4 text-center animate-box">
                         <div class="product">
                             <div class="product-grid" style="background-image:url({{ asset($service['image']) }});">
                                 <div class="inner">
                                     <p>
-                                        {{-- This link now points to the dynamic single service page --}}
                                         <a href="{{ route('service.show', ['slug' => $service['slug']]) }}" class="icon"><i class="icon-shopping-cart"></i></a>
                                         <a href="{{ route('service.show', ['slug' => $service['slug']]) }}" class="icon"><i class="icon-eye"></i></a>
                                     </p>

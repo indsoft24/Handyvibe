@@ -12,7 +12,7 @@
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeIn">
                             <h1>Contact HandyVibe</h1>
-                            <h2>Have questions about your privacy or our services? [cite_start]We’re here to help. [cite: 91]</h2>
+                            <h2>Have questions about your privacy or our services? We’re here to help.</h2>
                         </div>
                     </div>
                 </div>
@@ -28,9 +28,9 @@
                     <div class="fh5co-contact-info">
                         <h3>Contact Information</h3>
                         <ul>
-                            [cite_start]<li class="address">[Your Company Address] [cite: 92]</li>
-                            [cite_start]<li class="phone"><a href="tel://">[Your Contact Number] [cite: 92]</a></li>
-                            [cite_start]<li class="email"><a href="mailto:">[Your Company Email] [cite: 92]</a></li>
+                            <li class="address">[Your Company Address] </li>
+                            <li class="phone"><a href="tel://">[Your Contact Number] </a></li>
+                            <li class="email"><a href="mailto:">[Your Company Email] </a></li>
                         </ul>
                     </div>
 
@@ -78,13 +78,8 @@
         </div>
     </div>
     
-    {{-- You can uncomment this section if you want to include a Google Map --}}
-    {{-- <div id="map" class="animate-box" data-animate-effect="fadeIn"></div> --}}
 
 @endsection
 
 @push('scripts')
-    {{-- To enable the map, you need a valid Google Maps API Key --}}
-    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=false"></script> --}}
-    {{-- <script src="{{ asset('js/google_map.js') }}"></script> --}}
 @endpush
