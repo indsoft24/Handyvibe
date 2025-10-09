@@ -8,7 +8,7 @@
                 <li style="background-image: url(images/img_bg_1.jpg);">
                     <div class="overlay-gradient"></div>
                     <div class="container">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+                        <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
                             <div class="slider-text-inner">
                                 <div class="desc">
                                     <span class="price">₹800</span>
@@ -25,7 +25,7 @@
                 </li>
                 <li style="background-image: url(images/img_bg_2.jpg);">
                     <div class="container">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+                        <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
                             <div class="slider-text-inner">
                                 <div class="desc">
                                     <span class="price">₹530</span>
@@ -42,7 +42,7 @@
                 </li>
                 <li style="background-image: url(images/img_bg_3.jpg);">
                     <div class="container">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+                        <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
                             <div class="slider-text-inner">
                                 <div class="desc">
                                     <span class="price">₹750</span>
@@ -59,7 +59,7 @@
                 </li>
                 <li style="background-image: url(images/img_bg_4.jpg);">
                     <div class="container">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+                        <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
                             <div class="slider-text-inner">
                                 <div class="desc">
                                     <span class="price">₹540</span>
@@ -76,7 +76,7 @@
                 </li>
                 <li style="background-image: url(images/img_bg_5.jpg);">
                     <div class="container">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+                        <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
                             <div class="slider-text-inner">
                                 <div class="desc">
                                     <span class="price">₹940</span>
