@@ -13,9 +13,8 @@
                                 <div class="desc">
                                     <span class="price">₹800</span>
                                     <h2>Electrician</h2>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Separated they live in
-                                        Bookmarksgrove.</p>
+                                    <p>Looking for a reliable electrician? Find trusted experts easily with HandyVibe – your
+                                        one-stop solution for all electrical services at home or office.</p>
                                     <p><a href="" class="btn btn-primary btn-outline btn-lg">Book
                                             Now</a></p>
                                 </div>
@@ -30,9 +29,8 @@
                                 <div class="desc">
                                     <span class="price">₹530</span>
                                     <h2>Plumber</h2>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Separated they live in
-                                        Bookmarksgrove.</p>
+                                    <p>Looking for a reliable plumber? HandyVibe relates you with trusted experts who can
+                                        fix leaks, clogs, and all plumbing needs right at your doorstep.</p>
                                     <p><a href="" class="btn btn-primary btn-outline btn-lg">Book
                                             Now</a></p>
                                 </div>
@@ -47,9 +45,8 @@
                                 <div class="desc">
                                     <span class="price">₹750</span>
                                     <h2>Carpenter</h2>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Separated they live in
-                                        Bookmarksgrove.</p>
+                                    <p>FLooking for a reliable carpenter? Find skilled professionals easily with HandyVibe,
+                                        your trusted company for doorstep services.</p>
                                     <p><a href="" class="btn btn-primary btn-outline btn-lg">Book
                                             Now</a></p>
                                 </div>
@@ -64,9 +61,8 @@
                                 <div class="desc">
                                     <span class="price">₹540</span>
                                     <h2>Car washing</h2>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Separated they live in
-                                        Bookmarksgrove.</p>
+                                    <p>Looking for a quick and reliable car wash? HandyVibe brings trusted car washing
+                                        services right to your doorstep.</p>
                                     <p><a href="" class="btn btn-primary btn-outline btn-lg">Book
                                             Now</a></p>
                                 </div>
@@ -81,9 +77,8 @@
                                 <div class="desc">
                                     <span class="price">₹940</span>
                                     <h2>Home appliances repair and service</h2>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia, there live the blind texts. Separated they live in
-                                        Bookmarksgrove.</p>
+                                    <p>Looking for reliable Home Appliances Repair and Services? Find expert solutions with
+                                        HandyVibe, your trusted company for hassle-free repairs at your doorstep.</p>
                                     <p><a href="" class="btn btn-primary btn-outline btn-lg">Book
                                             Now</a></p>
                                 </div>
@@ -381,34 +376,9 @@
         </div>
     </div>
 
-    <div id="fh5co-started">
-        <div class="container">
-            <div class="row animate-box">
-                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                    <h2>Newsletter</h2>
-                    <p>Just stay tune for our latest Product. Now you can subscribe</p>
-                </div>
-            </div>
-            <div class="row animate-box">
-                <div class="col-md-8 col-md-offset-2">
-                    <form class="form-inline">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                <label for="email" class="sr-only">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <button type="submit" class="btn btn-default btn-block">Subscribe</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     @push('scripts')
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 var owl = $("#service-carousel");
                 owl.owlCarousel({
                     items: 3,
@@ -432,10 +402,10 @@
                 });
 
                 // Custom nav
-                $(".custom-owl-next").click(function() {
+                $(".custom-owl-next").click(function () {
                     owl.trigger('next.owl.carousel');
                 });
-                $(".custom-owl-prev").click(function() {
+                $(".custom-owl-prev").click(function () {
                     owl.trigger('prev.owl.carousel');
                 });
             });
