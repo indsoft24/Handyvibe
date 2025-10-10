@@ -60,7 +60,7 @@ a:focus {
 }
 
 p {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 h1,
@@ -73,7 +73,7 @@ figure {
     color: #000;
     font-family: "Montserrat", Arial, sans-serif;
     font-weight: 400;
-    margin: 0 0 20px 0;
+    margin: 14px 0 16px 0;
 }
 
 ::-webkit-selection {
@@ -92,7 +92,7 @@ figure {
 }
 
 .fh5co-nav {
-    padding: 18px 0;
+    padding: 18px 0 12px 0;
     background: #fff;
 }
 
@@ -103,7 +103,7 @@ figure {
 }
 
 .fh5co-nav #fh5co-logo {
-    font-size: 20px;
+    font-size: 15px;
     margin: 0;
     padding: 0;
     text-transform: uppercase;
@@ -326,16 +326,16 @@ figure {
 }
 
 #fh5co-hero {
-    max-height: 700px;
+    max-height: 350px;
     background: #fff url(../images/loader.gif) no-repeat center center;
 }
 
 #fh5co-hero .btn {
-    font-size: 24px;
+    font-size: 18px;
 }
 
 #fh5co-hero .btn.btn-primary {
-    padding: 14px 30px !important;
+    padding: 10px 22px !important;
 }
 
 #fh5co-hero .flexslider {
@@ -353,7 +353,8 @@ figure {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    min-height: 700px;
+    min-height: 350px;
+    max-height: 60vh;
 }
 
 #fh5co-hero .flexslider .flex-control-nav {
@@ -381,17 +382,17 @@ figure {
 #fh5co-hero .flexslider .slider-text {
     display: table;
     opacity: 0;
-    min-height: 700px;
+    min-height: 350px;
 }
 
 #fh5co-hero .flexslider .slider-text>.slider-text-inner {
     display: table-cell;
     vertical-align: middle;
-    min-height: 700px;
+    min-height: 350px;
 }
 
 #fh5co-hero .flexslider .slider-text>.slider-text-inner h2 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 400;
     color: #000;
     text-transform: uppercase;
@@ -406,7 +407,7 @@ figure {
 
 #fh5co-hero .flexslider .slider-text>.slider-text-inner .desc {
     background: rgba(255, 255, 255, 0.9);
-    padding: 40px;
+    padding: 25px;
 }
 
 #fh5co-hero .flexslider .slider-text>.slider-text-inner .desc .price {
@@ -417,7 +418,7 @@ figure {
 }
 
 #fh5co-hero .flexslider .slider-text>.slider-text-inner .btn {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #fh5co-hero .flexslider .slider-text>.slider-text-inner .fh5co-lead {
@@ -483,7 +484,7 @@ figure {
 }
 
 .fh5co-cover {
-    height: 800px;
+    height: 350px;
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
@@ -509,14 +510,14 @@ figure {
 
 @media screen and (max-width: 768px) {
     .fh5co-cover {
-        height: 600px;
+        height: 350px;
     }
 }
 
 .fh5co-cover .display-t,
 .fh5co-cover .display-tc {
     z-index: 9;
-    height: 900px;
+    height: 350px;
     display: table;
     width: 100%;
 }
@@ -525,23 +526,23 @@ figure {
 
     .fh5co-cover .display-t,
     .fh5co-cover .display-tc {
-        height: 600px;
+        height: 350px;
     }
 }
 
 .fh5co-cover.fh5co-cover-sm {
-    height: 600px;
+    height: 350px;
 }
 
 @media screen and (max-width: 768px) {
     .fh5co-cover.fh5co-cover-sm {
-        height: 400px;
+        height: 350px;
     }
 }
 
 .fh5co-cover.fh5co-cover-sm .display-t,
 .fh5co-cover.fh5co-cover-sm .display-tc {
-    height: 600px;
+    height: 350px;
     display: table;
     width: 100%;
 }
@@ -550,7 +551,7 @@ figure {
 
     .fh5co-cover.fh5co-cover-sm .display-t,
     .fh5co-cover.fh5co-cover-sm .display-tc {
-        height: 400px;
+        height: 350px;
     }
 }
 
@@ -1189,7 +1190,7 @@ figure {
 }
 
 .fh5co-heading {
-    margin-bottom: 5em;
+    margin-bottom: 1.5em;
 }
 
 .fh5co-heading.fh5co-heading-sm {
@@ -1214,7 +1215,7 @@ figure {
 
 .fh5co-heading span {
     display: block;
-    margin-bottom: 10px;
+    margin-block: 10px;
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 2px;
@@ -1977,7 +1978,7 @@ figure {
 }
 
 .row-pb-md {
-    padding-bottom: 4em !important;
+    padding-bottom: 12px !important;
 }
 
 .row-pb-sm {
