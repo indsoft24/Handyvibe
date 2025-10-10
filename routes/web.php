@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TablesController;
 use App\Http\Controllers\Admin\ChartsController;
 use App\Http\Controllers\Admin\FormsController;
 use App\Http\Controllers\Admin\ComponentsController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -38,10 +39,11 @@ Route::get('/products', [ServiceController::class, 'index'])->name('product');
 Route::prefix('admin')->name('admin.')->middleware(['web'])->group(function () {
     // Admin Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('products', ProductController::class); 
+
     
     // Admin Authentication
     Route::get('/signin', [AdminController::class, 'signin'])->name('signin');
-    Route::get('/signup', [AdminController::class, 'signup'])->name('signup');
     
     // Admin Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
