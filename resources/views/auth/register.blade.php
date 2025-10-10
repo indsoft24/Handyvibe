@@ -88,41 +88,4 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .fh5co-hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .panel {
-            margin-top: 50px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            height: 45px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            padding: 10px 15px;
-        }
-
-        .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
-        }
-
-        .alert {
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .btn-primary:hover {
-            background: #0056b3 !important;
-        }
-    </style>
 @endsection

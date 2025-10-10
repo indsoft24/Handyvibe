@@ -55,6 +55,62 @@
                     </li>
                     <!-- Menu Item Dashboard -->
 
+                    <!-- Menu Item Categories -->
+                    <li>
+                        <a href="{{ route('admin.categories.index') }}"
+                            class="menu-item group {{ request()->routeIs('admin.categories.*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                            <svg class="{{ request()->routeIs('admin.categories.*') ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                                    fill="" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Categories
+                            </span>
+                        </a>
+                    </li>
+                    <!-- Menu Item Categories -->
+
+                    <!-- Menu Item Sub Categories -->
+                    <li>
+                        <a href="{{ route('admin.sub-categories.index') }}"
+                            class="menu-item group {{ request()->routeIs('admin.sub-categories.*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                            <svg class="{{ request()->routeIs('admin.sub-categories.*') ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z" fill="" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Sub Categories
+                            </span>
+                        </a>
+                    </li>
+                    <!-- Menu Item Sub Categories -->
+
+                    <!-- Menu Item Products -->
+                    <li>
+                        <a href="{{ route('admin.products.index') }}"
+                            class="menu-item group {{ request()->routeIs('admin.products.*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                            <svg class="{{ request()->routeIs('admin.products.*') ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                                    fill="" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Products
+                            </span>
+                        </a>
+                    </li>
+                    <!-- Menu Item Products -->
+
                     <!-- Menu Item Profile -->
                     <li>
                         <a href="{{ route('admin.profile') }}"
@@ -346,6 +402,7 @@
                         <!-- Dropdown Menu End -->
                     </li>
                     <!-- Menu Item Components -->
+
                 </ul>
             </div>
         </nav>

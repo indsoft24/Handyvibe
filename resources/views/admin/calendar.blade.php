@@ -3,54 +3,19 @@
 @section('title', 'Calendar')
 
 @section('content')
-<!-- Breadcrumb Start -->
-<div x-data="{ pageName: `Calendar`}">
-  @include('admin.partials.breadcrumb')
-</div>
-<!-- Breadcrumb End -->
-
-<div class="overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 pt-5 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6 sm:pt-6">
-  <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-6">
-    Calendar
-  </h3>
-  
-  <div id="calendar" class="h-96"></div>
-</div>
-@endsection
-
-@section('scripts')
-<script>
-document.addEventListener("alpine:init", () => {
-  Alpine.data("calendar", () => ({
-    init() {
-      // Initialize FullCalendar
-      const calendarEl = document.getElementById('calendar');
-      const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        events: [
-          {
-            title: 'Meeting',
-            start: '2024-01-15',
-            backgroundColor: '#465fff',
-            borderColor: '#465fff'
-          },
-          {
-            title: 'Conference',
-            start: '2024-01-20',
-            end: '2024-01-22',
-            backgroundColor: '#12b76a',
-            borderColor: '#12b76a'
-          }
-        ]
-      });
-      calendar.render();
-    }
-  }));
-});
-</script>
+    <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-black">
+        <div class="mb-4 flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Calendar</h3>
+        </div>
+        <div class="h-96 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <div class="text-center">
+                <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Calendar Integration</p>
+                <p class="text-xs text-gray-400">Calendar functionality coming soon</p>
+            </div>
+        </div>
+    </div>
 @endsection
