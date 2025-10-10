@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\userController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -33,6 +34,19 @@ Route::get('/services', function () {
 Route::get('/service/{slug}', [ServiceController::class, 'show'])->name('service.show');
 
 Route::get('/products', [ServiceController::class, 'index'])->name('product');
+
+// Authentication Routes
+Route::get('/register', [userController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [userController::class, 'sendRegistrationOtp'])->name('otp.send.registration');
+Route::get('/login', [userController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [userController::class, 'sendLoginOtp'])->name('otp.send.login');
+Route::post('/logout', [userController::class, 'logout'])->name('logout');
+
+// OTP Verification Routes
+Route::get('/otp/verify', [userController::class, 'showOtpVerification'])->name('otp.verify');
+Route::post('/otp/verify/registration', [userController::class, 'verifyRegistrationOtp'])->name('otp.verify.registration');
+Route::post('/otp/verify/login', [userController::class, 'verifyLoginOtp'])->name('otp.verify.login');
+Route::post('/otp/resend', [userController::class, 'resendOtp'])->name('otp.resend');
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['web'])->group(function () {

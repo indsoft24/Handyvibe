@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,7 +19,17 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
+        'user_type',
+        'mobile',
+        'status',
         'password',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'status' => 'boolean',
     ];
 
     /**
@@ -43,6 +52,58 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'status' => 'boolean',
         ];
     }
+
+    /**
+     * Check if user is active
+     */
+    public function isActive()
+    {
+        return $this->status == 1;
+    }
+
+    /**
+     * Check if user is inactive
+     */
+    public function isInactive()
+    {
+        return $this->status == 0;
+    }
+
+    /**
+     * Activate user
+     */
+    public function activate()
+    {
+        $this->update(['status' => 1]);
+        return $this;
+    }
+
+    /**
+     * Deactivate user
+     */
+    public function deactivate()
+    {
+        $this->update(['status' => 0]);
+        return $this;
+    }
+
+    /**
+     * Scope for active users
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    /**
+     * Scope for inactive users
+     */
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 0);
+    }
+
 }

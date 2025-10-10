@@ -17,7 +17,7 @@
                     </li>
                     <li><a href="{{ route('about') }}">About</a></li>
                     <li class="has-dropdown">
-                         <a href="{{ route('services') }}">Services</a>
+                        <a href="{{ route('services') }}">Services</a>
                         <ul class="dropdown">
                             <li><a href="#">Home Solutions</a></li>
                             <li><a href="#">Branding</a></li>
@@ -38,7 +38,24 @@
                             </span>
                         </div>
                     </li>
-                    <li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
+                    <li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i
+                                    class="icon-shopping-cart"></i></span></a></li>
+                    @auth
+                        <li class="has-dropdown">
+                            <a href="#"><i class="icon-user"></i> {{ Auth::user()->name }}</a>
+                            <ul class="dropdown">
+                                <li><a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @else
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
+                    @endauth
                 </ul>
             </div>
         </div>
