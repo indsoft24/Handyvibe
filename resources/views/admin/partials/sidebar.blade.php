@@ -111,6 +111,108 @@
                     </li>
                     <!-- Menu Item Products -->
 
+                    <!-- Menu Item Services -->
+                    <li>
+                        <a href="{{ route('admin.services.index') }}"
+                            class="menu-item group {{ request()->routeIs('admin.services.*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                            <svg class="{{ request()->routeIs('admin.services.*') ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                                    fill="" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Services
+                            </span>
+                        </a>
+                    </li>
+                    <!-- Menu Item Services -->
+
+                    <!-- Menu Item Leads -->
+                    <li>
+                        <a href="{{ route('admin.leads.index') }}"
+                            class="menu-item group {{ request()->routeIs('admin.leads.*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                            <svg class="{{ request()->routeIs('admin.leads.*') ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                                    fill="" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Leads
+                            </span>
+                        </a>
+                    </li>
+                    <!-- Menu Item Leads -->
+
+                    <!-- Menu Item Settings -->
+                    <li>
+                        <a href="#" @click.prevent="selected = (selected === 'Settings' ? '':'Settings')"
+                            class="menu-item group"
+                            :class="selected === 'Settings' ? 'menu-item-active' : 'menu-item-inactive'">
+                            <svg :class="selected === 'Settings' ? 'menu-item-icon-active' : 'menu-item-icon-inactive'"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                    fill="" />
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                    fill="" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Settings
+                            </span>
+
+                            <svg class="menu-item-arrow"
+                                :class="[(selected === 'Settings') ? 'menu-item-arrow-active' : 'menu-item-arrow-inactive',
+                                    sidebarToggle ? 'lg:hidden' : ''
+                                ]"
+                                width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M7.50008 14.1666L12.5001 9.16664L7.50008 4.16664" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown Menu Start -->
+                        <div x-show="selected === 'Settings'" x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 transform scale-95"
+                            x-transition:enter-end="opacity-100 transform scale-100"
+                            x-transition:leave="transition ease-in duration-300"
+                            x-transition:leave-start="opacity-100 transform scale-100"
+                            x-transition:leave-end="opacity-0 transform scale-95" class="menu-dropdown"
+                            :class="sidebarToggle ? 'lg:hidden' : ''">
+                            <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a href="{{ route('admin.settings.index') }}"
+                                        class="menu-dropdown-item {{ request()->routeIs('admin.settings.index') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
+                                        All Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.settings.pages.index') }}"
+                                        class="menu-dropdown-item {{ request()->routeIs('admin.settings.pages.*') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
+                                        Page Content
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.settings.banners.index') }}"
+                                        class="menu-dropdown-item {{ request()->routeIs('admin.settings.banners.*') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
+                                        Banners
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
+                    </li>
+                    <!-- Menu Item Settings -->
+
                     <!-- Menu Item Profile -->
                     <li>
                         <a href="{{ route('admin.profile') }}"

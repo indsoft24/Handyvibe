@@ -17,6 +17,7 @@ class Admin extends Authenticatable
         'password',
         'role',
         'status',
+        'avatar',
         'last_login_at',
     ];
 

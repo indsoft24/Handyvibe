@@ -94,6 +94,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:admins,email,' . $admin->id,
             'mobile' => 'nullable|string|max:20',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'current_password' => 'required_with:password',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
@@ -118,6 +119,17 @@ class AuthController extends Controller
             'email' => $request->email,
             'mobile' => $request->mobile,
         ];
+
+        // Handle avatar upload
+        if ($request->hasFile('avatar')) {
+            // Delete old avatar if exists
+            if ($admin->avatar && file_exists(storage_path('app/public/' . $admin->avatar))) {
+                unlink(storage_path('app/public/' . $admin->avatar));
+            }
+            
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $updateData['avatar'] = $avatarPath;
+        }
 
         if ($request->filled('password')) {
             $updateData['password'] = Hash::make($request->password);
