@@ -3,214 +3,140 @@
 @section('title', 'Profile')
 
 @section('content')
-    <div class="grid grid-cols-12 gap-4 md:gap-6">
-        <!-- Page Header -->
-        <div class="col-span-12">
-            <div class="flex items-center justify-between">
+<div class="space-y-6">
+    <!-- Page Header -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-indigo-100 dark:bg-indigo-900 rounded-lg">
+                    <svg class="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                </div>
                 <div>
-                    <h1 class="text-2xl font-bold text-black dark:text-white">Profile</h1>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Manage your admin profile information</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profile Form -->
-        <div class="col-span-12 xl:col-span-8">
-            <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                    <h3 class="font-medium text-black dark:text-white">Profile Information</h3>
-                </div>
-                <div class="p-7">
-                    <form method="POST" action="{{ route('admin.profile.update') }}">
-                        @csrf
-
-                        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                            <div>
-                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                    Name <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text"
-                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary {{ $errors->has('name') ? 'border-red-500' : '' }}"
-                                    name="name" value="{{ old('name', Auth::guard('admin')->user()->name) }}"
-                                    placeholder="Enter your name" required>
-                                @error('name')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div>
-                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                    Email <span class="text-red-500">*</span>
-                                </label>
-                                <input type="email"
-                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary {{ $errors->has('email') ? 'border-red-500' : '' }}"
-                                    name="email" value="{{ old('email', Auth::guard('admin')->user()->email) }}"
-                                    placeholder="Enter your email" required>
-                                @error('email')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Mobile
-                            </label>
-                            <input type="text"
-                                class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary {{ $errors->has('mobile') ? 'border-red-500' : '' }}"
-                                name="mobile" value="{{ old('mobile', Auth::guard('admin')->user()->mobile) }}"
-                                placeholder="Enter your mobile number">
-                            @error('mobile')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-6 flex justify-end space-x-3">
-                            <button type="submit"
-                                class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-center font-medium text-white hover:bg-opacity-90">
-                                <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                Update Profile
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Change Password -->
-            <div
-                class="mt-6 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                    <h3 class="font-medium text-black dark:text-white">Change Password</h3>
-                </div>
-                <div class="p-7">
-                    <form method="POST" action="{{ route('admin.profile.update') }}">
-                        @csrf
-                        <input type="hidden" name="action" value="change_password">
-
-                        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                            <div>
-                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                    Current Password <span class="text-red-500">*</span>
-                                </label>
-                                <input type="password"
-                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary {{ $errors->has('current_password') ? 'border-red-500' : '' }}"
-                                    name="current_password" placeholder="Enter current password" required>
-                                @error('current_password')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div>
-                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                    New Password <span class="text-red-500">*</span>
-                                </label>
-                                <input type="password"
-                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary {{ $errors->has('password') ? 'border-red-500' : '' }}"
-                                    name="password" placeholder="Enter new password" required>
-                                @error('password')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div>
-                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                    Confirm Password <span class="text-red-500">*</span>
-                                </label>
-                                <input type="password"
-                                    class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary {{ $errors->has('password_confirmation') ? 'border-red-500' : '' }}"
-                                    name="password_confirmation" placeholder="Confirm new password" required>
-                                @error('password_confirmation')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="mt-6 flex justify-end space-x-3">
-                            <button type="submit"
-                                class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-center font-medium text-white hover:bg-opacity-90">
-                                <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
-                                    </path>
-                                </svg>
-                                Change Password
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profile Info -->
-        <div class="col-span-12 xl:col-span-4">
-            <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                    <h3 class="font-medium text-black dark:text-white">Profile Information</h3>
-                </div>
-                <div class="p-7">
-                    <div class="text-center">
-                        <div class="mx-auto mb-4 h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center">
-                            <svg class="h-10 w-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h4 class="text-lg font-semibold text-black dark:text-white">
-                            {{ Auth::guard('admin')->user()->name }}</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ Auth::guard('admin')->user()->email }}</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ Auth::guard('admin')->user()->mobile }}</p>
-
-                        <div class="mt-4 flex justify-center">
-                            <span
-                                class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
-                                {{ ucfirst(Auth::guard('admin')->user()->role) }}
-                            </span>
-                        </div>
-
-                        @if (Auth::guard('admin')->user()->last_login_at)
-                            <div class="mt-4 text-center">
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Last Login</p>
-                                <p class="text-sm text-black dark:text-white">
-                                    {{ Auth::guard('admin')->user()->last_login_at->format('M d, Y H:i') }}
-                                </p>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <!-- Account Status -->
-            <div
-                class="mt-4 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                    <h3 class="font-medium text-black dark:text-white">Account Status</h3>
-                </div>
-                <div class="p-7">
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600 dark:text-gray-400">Status</span>
-                            <span
-                                class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ Auth::guard('admin')->user()->status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                {{ Auth::guard('admin')->user()->status ? 'Active' : 'Inactive' }}
-                            </span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600 dark:text-gray-400">Role</span>
-                            <span
-                                class="text-sm font-medium text-black dark:text-white">{{ ucfirst(Auth::guard('admin')->user()->role) }}</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600 dark:text-gray-400">Member Since</span>
-                            <span
-                                class="text-sm font-medium text-black dark:text-white">{{ Auth::guard('admin')->user()->created_at->format('M d, Y') }}</span>
-                        </div>
-                    </div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Profile</h1>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Manage your admin profile and password</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left Column: Forms -->
+        <div class="lg:col-span-1 space-y-6">
+            <!-- Profile Information Form -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
+                    <h3 class="font-semibold text-lg text-gray-900 dark:text-white">Profile Information</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Update your personal details.</p>
+                </div>
+                <form method="POST" action="{{ route('admin.profile.update') }}" autocomplete="off">
+                    @csrf
+                    <input type="hidden" name="action" value="update_profile">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Name <span class="text-red-500">*</span></label>
+                            <input type="text" name="name" value="{{ old('name', Auth::guard('admin')->user()->name) }}" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('name') ? 'border-red-500' : '' }}">
+                            @error('name')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Email Address <span class="text-red-500">*</span></label>
+                            <input type="email" name="email" value="{{ old('email', Auth::guard('admin')->user()->email) }}" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('email') ? 'border-red-500' : '' }}">
+                            @error('email')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Mobile Number</label>
+                        <input type="text" name="mobile" value="{{ old('mobile', Auth::guard('admin')->user()->mobile) }}" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('mobile') ? 'border-red-500' : '' }}">
+                        @error('mobile')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="mt-8 flex justify-end pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <button type="submit" class="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-200 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Change Password Form -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
+                    <h3 class="font-semibold text-lg text-gray-900 dark:text-white">Change Password</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Update your account password.</p>
+                </div>
+                <form method="POST" action="{{ route('admin.profile.update') }}" autocomplete="off">
+                    @csrf
+                    <input type="hidden" name="action" value="change_password">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Current Password <span class="text-red-500">*</span></label>
+                            <input type="password" name="current_password" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('current_password') ? 'border-red-500' : '' }}">
+                            @error('current_password')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">New Password <span class="text-red-500">*</span></label>
+                                <input type="password" name="password" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('password') ? 'border-red-500' : '' }}">
+                                @error('password')<p class="mt-2 text-sm text-red-600">{{ $message }}</p>@enderror
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Confirm New Password <span class="text-red-500">*</span></label>
+                                <input type="password" name="password_confirmation" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex justify-end pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <button type="submit" class="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-gray-600 to-gray-700 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-200 hover:from-gray-700 hover:to-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                            Update Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Profile Summary -->
+        <div class="space-y-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="text-center">
+                    <div class="mx-auto mb-4 h-24 w-24 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center border-4 border-white dark:border-gray-800 shadow-md">
+                        <svg class="h-12 w-12 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ Auth::guard('admin')->user()->name }}</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ Auth::guard('admin')->user()->email }}</p>
+                     @if(Auth::guard('admin')->user()->mobile)
+                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ Auth::guard('admin')->user()->mobile }}</p>
+                    @endif
+                </div>
+
+                <div class="mt-6 border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <dl class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Role</dt>
+                            <dd class="text-sm font-semibold text-gray-900 dark:text-white bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 px-2 py-0.5 rounded-md">{{ ucfirst(Auth::guard('admin')->user()->role) }}</dd>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
+                            <dd class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ Auth::guard('admin')->user()->status ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }}">
+                                {{ Auth::guard('admin')->user()->status ? 'Active' : 'Inactive' }}
+                            </dd>
+                        </div>
+                         <div class="flex justify-between items-center">
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Member Since</dt>
+                            <dd class="text-sm text-gray-900 dark:text-white">{{ Auth::guard('admin')->user()->created_at->format('M d, Y') }}</dd>
+                        </div>
+                        @if (Auth::guard('admin')->user()->last_login_at)
+                            <div class="flex justify-between items-center">
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Last Login</dt>
+                                <dd class="text-sm text-gray-900 dark:text-white">{{ Auth::guard('admin')->user()->last_login_at->format('M d, Y') }}</dd>
+                            </div>
+                        @endif
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
