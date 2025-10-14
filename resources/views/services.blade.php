@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    {{-- NEW SECTION: Detailed Service Descriptions --}}
+    {{-- NEW SECTION: Dynamic Service Listings --}}
     <div id="fh5co-detailed-services">
         <div class="container">
             <div class="row animate-box">
@@ -93,62 +93,143 @@
                 </div>
             </div>
 
-            {{-- Electrician Service --}}
-            <div class="row">
-                <div class="col-md-6 animate-box">
-                    <img class="img-responsive" src="{{ asset('images/img_bg_1.jpg') }}" alt="Electrician Service">
-                </div>
-                <div class="col-md-6 animate-box">
-                    <div class="desc">
-                        <h3>Expert Electrician Services</h3>
-                        <p>Modern homes use advanced electrical appliances, and attempting repairs yourself can be life-threatening. The HandyVibe company has a solution for all your problems. If you need a residential electrician, you can get it done through the HandyVibe website within a reasonable budget. </p>
-                        <p><a href="{{ route('product') }}" class="btn btn-primary btn-outline">Book Now</a></p>
+            @forelse($services as $service)
+                <div class="row {{ $loop->even ? 'flex-row-reverse' : '' }}">
+                    <div class="col-md-6 {{ $loop->even ? 'col-md-push-6' : '' }} animate-box">
+                        <img class="img-responsive" src="{{ asset($service->featured_image ? 'storage/' . $service->featured_image : 'images/img_bg_1.jpg') }}" alt="{{ $service->name }}">
+                    </div>
+                    <div class="col-md-6 {{ $loop->even ? 'col-md-pull-6' : '' }} animate-box">
+                        <div class="desc">
+                            <h3>{{ $service->name }}</h3>
+                            @if($service->short_description)
+                                <p class="service-short-desc">{{ $service->short_description }}</p>
+                            @endif
+                            @if($service->description)
+                                <p>{{ $service->description }}</p>
+                            @endif
+                            
+                            <div class="service-details">
+                                <div class="price-section">
+                                    @if($service->is_on_sale)
+                                        <span class="old-price">₹{{ number_format($service->price, 2) }}</span>
+                                        <span class="current-price">₹{{ number_format($service->current_price, 2) }}</span>
+                                        <span class="discount">Save {{ $service->discount_percentage }}%</span>
+                                    @else
+                                        <span class="current-price">₹{{ number_format($service->price, 2) }}</span>
+                                    @endif
+                                </div>
+                                
+                                @if($service->duration)
+                                    <div class="duration">
+                                        <strong>Duration:</strong> {{ $service->duration }}
+                                    </div>
+                                @endif
+                                
+                                @if($service->service_type)
+                                    <div class="service-type">
+                                        <span class="badge badge-{{ $service->service_type }}">{{ ucfirst(str_replace('_', ' ', $service->service_type)) }}</span>
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            <p><a href="{{ route('service.show', $service->slug) }}" class="btn btn-primary btn-outline">Book Now</a></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            {{-- Plumber Service --}}
-            <div class="row">
-                <div class="col-md-6 col-md-push-6 animate-box">
-                    <img class="img-responsive" src="{{ asset('images/img_bg_2.jpg') }}" alt="Plumber Service">
-                </div>
-                <div class="col-md-6 col-md-pull-6 animate-box">
-                     <div class="desc">
-                        <h3>Reliable Plumbing Solutions</h3>
-                        <p>A leaking faucet is something no one can tolerate, especially at night, and local plumbers can cost a fortune. In the future, if you ever need a plumber, just remember the HandyVibe company directly to get all kinds of services at a minimum price.</p>
-                        <p><a href="{{ route('product') }}" class="btn btn-primary btn-outline">Book Now</a></p>
+            @empty
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>No services available at the moment.</p>
                     </div>
                 </div>
-            </div>
+            @endforelse
 
-            {{-- Carpenter Service --}}
-            <div class="row">
-                <div class="col-md-6 animate-box">
-                    <img class="img-responsive" src="{{ asset('images/img_bg_3.jpg') }}" alt="Carpenter Service">
-                </div>
-                <div class="col-md-6 animate-box">
-                    <div class="desc">
-                        <h3>Skilled Carpentry Work</h3>
-                        <p>A carpenter is an artist who can give a new look to your house. For tasks like fixing a sticky door, a rotting window frame, or a damaged deck board, you'll need a carpenter. You can directly book one by visiting the HandyVibe website.</p>
-                        <p><a href="{{ route('product') }}" class="btn btn-primary btn-outline">Book Now</a></p>
+            @if($services->hasPages())
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        {{ $services->links() }}
                     </div>
                 </div>
-            </div>
-
-            {{-- Car Washing Service --}}
-             <div class="row">
-                <div class="col-md-6 col-md-push-6 animate-box">
-                    <img class="img-responsive" src="{{ asset('images/img_bg_4.jpg') }}" alt="Car Washing Service">
-                </div>
-                <div class="col-md-6 col-md-pull-6 animate-box">
-                     <div class="desc">
-                        <h3>Convenient Car Washing</h3>
-                        <p>Washing your car is a boring and time-consuming task. Instead of waiting in lines or wasting time, get your car serviced right in your parking space with the help of HandyVibe company services.</p>
-                        <p><a href="{{ route('product') }}" class="btn btn-primary btn-outline">Book Now</a></p>
-                    </div>
-                </div>
-            </div>
-
+            @endif
         </div>
     </div>
+
+    <style>
+        .service-short-desc {
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .service-details {
+            margin: 20px 0;
+        }
+        
+        .price-section {
+            margin-bottom: 10px;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        
+        .current-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .discount {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+        
+        .duration {
+            margin: 10px 0;
+            color: #666;
+        }
+        
+        .service-type {
+            margin: 10px 0;
+        }
+        
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-one_time {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .badge-recurring {
+            background-color: #e8f5e8;
+            color: #388e3c;
+        }
+        
+        .badge-subscription {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .flex-row-reverse {
+            flex-direction: row-reverse;
+        }
+        
+        @media (max-width: 768px) {
+            .flex-row-reverse {
+                flex-direction: column;
+            }
+        }
+    </style>
 @endsection

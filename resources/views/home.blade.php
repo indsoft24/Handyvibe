@@ -158,105 +158,38 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-1.jpg);">
-                            <div class="inner">
-                                <p>
-                                    <a href="" class="icon"><i class="icon-shopping-cart"></i></a>
-                                    <a href="" class="icon"><i class="icon-eye"></i></a>
-                                </p>
+                @forelse($featuredProducts as $product)
+                    <div class="col-md-4 text-center animate-box">
+                        <div class="product">
+                            <div class="product-grid" style="background-image:url({{ asset($product->featured_image ? 'storage/' . $product->featured_image : 'images/product-1.jpg') }});">
+                                @if($product->isOnSale())
+                                    <span class="sale">Sale</span>
+                                @endif
+                                <div class="inner">
+                                    <p>
+                                        <a href="{{ route('product.show', $product) }}" class="icon"><i class="icon-shopping-cart"></i></a>
+                                        <a href="{{ route('product.show', $product) }}" class="icon"><i class="icon-eye"></i></a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="desc">
+                                <h3><a href="{{ route('product.show', $product) }}">{{ $product->name }}</a></h3>
+                                <span class="price">
+                                    @if($product->isOnSale())
+                                        <span class="old-price">₹{{ number_format($product->price, 2) }}</span>
+                                        ₹{{ number_format($product->current_price, 2) }}
+                                    @else
+                                        ₹{{ number_format($product->price, 2) }}
+                                    @endif
+                                </span>
                             </div>
                         </div>
-                        <div class="desc">
-                            <h3><a href="">Hauteville Concrete Rocking Chair</a></h3>
-                            <span class="price">₹350</span>
-                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-2.jpg);">
-                            <span class="sale">Sale</span>
-                            <div class="inner">
-                                <p>
-                                    <a href="" class="icon"><i class="icon-shopping-cart"></i></a>
-                                    <a href="" class="icon"><i class="icon-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="">Pavilion Speaker</a></h3>
-                            <span class="price">₹600</span>
-                        </div>
+                @empty
+                    <div class="col-md-12 text-center">
+                        <p>No products available at the moment.</p>
                     </div>
-                </div>
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-3.jpg);">
-                            <div class="inner">
-                                <p>
-                                    <a href="" class="icon"><i class="icon-shopping-cart"></i></a>
-                                    <a href="" class="icon"><i class="icon-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="">Ligomancer</a></h3>
-                            <span class="price">₹780</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-4.jpg);">
-                            <div class="inner">
-                                <p>
-                                    <a href="" class="icon"><i class="icon-shopping-cart"></i></a>
-                                    <a href="" class="icon"><i class="icon-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="">Alato Cabinet</a></h3>
-                            <span class="price">₹800</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-5.jpg);">
-                            <div class="inner">
-                                <p>
-                                    <a href="" class="icon"><i class="icon-shopping-cart"></i></a>
-                                    <a href="" class="icon"><i class="icon-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="">Earing Wireless</a></h3>
-                            <span class="price">₹100</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-6.jpg);">
-                            <div class="inner">
-                                <p>
-                                    <a href="" class="icon"><i class="icon-shopping-cart"></i></a>
-                                    <a href="" class="icon"><i class="icon-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="">Sculptural Coffee Table</a></h3>
-                            <span class="price">₹960</span>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </div>
@@ -412,6 +345,33 @@
         </script>
     @endpush
 
-
-
+    <style>
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        
+        .current-price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .discount {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+        
+        .product .desc .price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
 @endsection

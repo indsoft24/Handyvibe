@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/', function () {
-    return view('home');
+    $productController = new ProductController();
+    $featuredProducts = $productController->getFeaturedProducts(6);
+    return view('home', compact('featuredProducts'));
 })->name('home');
 
 Route::get('/about', function () {
@@ -17,13 +20,12 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/services', function () {
-    return view('services');
-})->name('services');
+Route::get('/services', [ServiceController::class, 'index'])->name('services');
 
 Route::get('/service/{slug}', [ServiceController::class, 'show'])->name('service.show');
 
-Route::get('/products', [ServiceController::class, 'index'])->name('product');
+Route::get('/products', [ProductController::class, 'index'])->name('product');
+Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
 // Authentication Routes
 Route::get('/register', [userController::class, 'showRegisterForm'])->name('register');

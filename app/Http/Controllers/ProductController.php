@@ -9,68 +9,58 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    /**
+     * Display a listing of products for frontend
+     */
     public function index()
     {
-        $products = Product::latest()->paginate(10);
-        return view('products.index', compact('products'));
+        $products = Product::active()
+            ->inStock()
+            ->with(['category', 'subcategory'])
+            ->ordered()
+            ->paginate(12);
+        
+        return view('product', compact('products'));
     }
 
-    public function create()
-    {
-        return view('products.create');
-    }
-
-    public function store(StoreProductRequest $request)
-    {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
-        }
-
-        Product::create($data);
-
-        return redirect()->route('products.index')
-            ->with('success', 'Product created successfully.');
-    }
-
+    /**
+     * Display the specified product
+     */
     public function show(Product $product)
     {
-        return view('products.show', compact('product'));
+        // Load related products
+        $relatedProducts = Product::active()
+            ->inStock()
+            ->where('id', '!=', $product->id)
+            ->where('category_id', $product->category_id)
+            ->limit(4)
+            ->get();
+
+        return view('single-product', compact('product', 'relatedProducts'));
     }
 
-    public function edit(Product $product)
+    /**
+     * Get featured products for home page
+     */
+    public function getFeaturedProducts($limit = 6)
     {
-        return view('products.edit', compact('product'));
+        return Product::active()
+            ->inStock()
+            ->featured()
+            ->ordered()
+            ->limit($limit)
+            ->get();
     }
 
-    public function update(UpdateProductRequest $request, Product $product)
+    /**
+     * Get latest products for home page
+     */
+    public function getLatestProducts($limit = 6)
     {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            // Delete old image
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
-            $data['image'] = $request->file('image')->store('products', 'public');
-        }
-
-        $product->update($data);
-
-        return redirect()->route('products.index')
-            ->with('success', 'Product updated successfully.');
-    }
-
-    public function destroy(Product $product)
-    {
-        if ($product->image) {
-            Storage::disk('public')->delete($product->image);
-        }
-
-        $product->delete();
-
-        return redirect()->route('products.index')
-            ->with('success', 'Product deleted successfully.');
+        return Product::active()
+            ->inStock()
+            ->latest()
+            ->limit($limit)
+            ->get();
     }
 }
