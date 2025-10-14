@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
+use App\Events\NewLeadNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -44,6 +45,9 @@ class LeadController extends Controller
             'priority' => 'medium',
             'metadata' => $metadata,
         ]));
+
+        // Broadcast the new lead notification
+        broadcast(new NewLeadNotification($lead));
 
         return response()->json([
             'success' => true,

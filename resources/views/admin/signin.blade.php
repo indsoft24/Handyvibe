@@ -15,7 +15,7 @@
                 </p>
             </div>
 
-            @if ($errors->any())
+            @if (isset($errors) && $errors->any())
                 <div class="rounded-md bg-red-50 p-4">
                     <div class="flex">
                         <div class="flex-shrink-0">

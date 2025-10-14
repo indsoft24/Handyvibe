@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Admin Authentication Routes (Public)
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
     Route::get('/login', function () {
         return view('admin.signin');
     })->name('login');
@@ -57,6 +57,19 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     Route::post('/leads/{lead}/update-priority', [App\Http\Controllers\Admin\LeadController::class, 'updatePriority'])->name('leads.update-priority');
     Route::post('/leads/{lead}/assign', [App\Http\Controllers\Admin\LeadController::class, 'assign'])->name('leads.assign');
     Route::post('/leads/{lead}/add-notes', [App\Http\Controllers\Admin\LeadController::class, 'addNotes'])->name('leads.add-notes');
+
+    // Notifications Management
+    Route::get('/notifications', [App\Http\Controllers\Admin\NotificationController::class, 'getNotifications'])->name('notifications');
+    Route::get('/notifications/stats', [App\Http\Controllers\Admin\NotificationController::class, 'getNotificationStats'])->name('notifications.stats');
+    Route::post('/notifications/mark-read', [App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+
+    // User Management Routes
+    Route::get('users/stats', [App\Http\Controllers\Admin\UserController::class, 'getStats'])->name('users.stats');
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['create', 'store']);
+    Route::post('/users/{user}/toggle-status', [App\Http\Controllers\Admin\UserController::class, 'toggleStatus'])->name('users.toggle-status');
+    Route::post('/users/{user}/verify-email', [App\Http\Controllers\Admin\UserController::class, 'verifyEmail'])->name('users.verify-email');
+    Route::post('/users/{user}/unverify-email', [App\Http\Controllers\Admin\UserController::class, 'unverifyEmail'])->name('users.unverify-email');
+    Route::post('/users/{user}/reset-password', [App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->name('users.reset-password');
 
     // Settings Management
     Route::prefix('settings')->name('settings.')->group(function () {
