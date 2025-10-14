@@ -149,6 +149,25 @@
                     </li>
                     <!-- Menu Item Leads -->
 
+                    <!-- Menu Item Users -->
+                    <li>
+                        <a href="{{ route('admin.users.index') }}"
+                            class="menu-item group {{ request()->routeIs('admin.users.*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                            <svg class="{{ request()->routeIs('admin.users.*') ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+                                    fill="" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Users
+                            </span>
+                        </a>
+                    </li>
+                    <!-- Menu Item Users -->
+
                     <!-- Menu Item Settings -->
                     <li>
                         <a href="#" @click.prevent="selected = (selected === 'Settings' ? '':'Settings')"
