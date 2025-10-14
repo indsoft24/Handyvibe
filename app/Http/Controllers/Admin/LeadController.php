@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
 use App\Models\Lead;
+use App\Models\Admin;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -42,12 +42,12 @@ class LeadController extends Controller
         // Search
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function ($q) use ($search) {
+            $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%")
-                    ->orWhere('company', 'like', "%{$search}%")
-                    ->orWhere('message', 'like', "%{$search}%");
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('company', 'like', "%{$search}%")
+                  ->orWhere('message', 'like', "%{$search}%");
             });
         }
 
@@ -123,7 +123,6 @@ class LeadController extends Controller
     public function show(Lead $lead)
     {
         $lead->load('assignedAdmin');
-
         return view('admin.leads.show', compact('lead'));
     }
 
@@ -134,7 +133,7 @@ class LeadController extends Controller
     {
         $admins = Admin::active()->get();
         $products = Product::where('status', true)->get();
-        $services = Service::all(); // Services table is empty, so get all
+        $services = Service::active()->get();
 
         return view('admin.leads.edit', compact('lead', 'admins', 'products', 'services'));
     }
@@ -255,8 +254,8 @@ class LeadController extends Controller
             return response()->json(['error' => 'Notes are required'], 400);
         }
 
-        $currentNotes = $lead->notes ? $lead->notes."\n\n" : '';
-        $newNotes = $currentNotes.now()->format('Y-m-d H:i:s').' - '.$request->notes;
+        $currentNotes = $lead->notes ? $lead->notes . "\n\n" : '';
+        $newNotes = $currentNotes . now()->format('Y-m-d H:i:s') . " - " . $request->notes;
 
         $lead->update(['notes' => $newNotes]);
 
