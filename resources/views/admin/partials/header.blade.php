@@ -64,9 +64,10 @@
                 <!-- Notification Menu Area -->
                 <li>
                     <div class="relative">
-                        <button @click="notificationOpen = !notificationOpen"
+                        <button @click="toggleNotificationDropdown()"
                             class="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white">
-                            <span class="absolute -top-0.5 -right-0.5 z-1 h-2 w-2 rounded-full bg-brand-500">
+                            <span class="absolute -top-0.5 -right-0.5 z-1 h-2 w-2 rounded-full bg-brand-500"
+                                x-show="notificationCount > 0">
                                 <span
                                     class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-brand-500 opacity-75"></span>
                             </span>
@@ -90,66 +91,64 @@
                             class="absolute right-0 mt-4 w-80 rounded-sm border border-stroke bg-white shadow-xl dark:border-strokedark dark:bg-boxdark">
                             <div class="px-4 py-3 border-b border-stroke dark:border-strokedark">
                                 <h3 class="text-sm font-medium text-black dark:text-white">Notifications</h3>
+                                <span class="text-xs text-gray-500 dark:text-gray-400"
+                                    x-text="notificationCount + ' unread'"></span>
                             </div>
-                            <ul class="max-h-80 overflow-y-auto">
-                                <li class="px-4 py-3 border-b border-stroke dark:border-strokedark">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="h-8 w-8 rounded-full bg-brand-100 dark:bg-brand-900/20 flex items-center justify-center">
-                                            <svg class="h-4 w-4 text-brand-600 dark:text-brand-400" fill="currentColor"
-                                                viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
+
+                            <!-- Loading State -->
+                            <div x-show="notificationsLoading" class="px-4 py-8 text-center">
+                                <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-brand-600">
+                                </div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Loading notifications...</p>
+                            </div>
+
+                            <!-- Notifications List -->
+                            <ul class="max-h-80 overflow-y-auto" x-show="!notificationsLoading">
+                                <template x-for="notification in notifications" :key="notification.id">
+                                    <li class="px-4 py-3 border-b border-stroke dark:border-strokedark hover:bg-gray-50 dark:hover:bg-meta-4 cursor-pointer"
+                                        @click="openNotification(notification)">
+                                        <div class="flex items-center gap-3">
+                                            <div class="h-8 w-8 rounded-full flex items-center justify-center"
+                                                :class="getNotificationIconBg(notification.priority)">
+                                                <svg class="h-4 w-4" :class="notification.icon_color"
+                                                    fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" :d="notification.icon"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-black dark:text-white truncate"
+                                                    x-text="notification.title"></p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 truncate"
+                                                    x-text="notification.message"></p>
+                                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1"
+                                                    x-text="notification.time"></p>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium"
+                                                    :class="getPriorityBadgeClass(notification.priority)"
+                                                    x-text="notification.priority"></span>
+                                            </div>
                                         </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-black dark:text-white">New message
-                                                received</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">2 minutes ago</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="px-4 py-3 border-b border-stroke dark:border-strokedark">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="h-8 w-8 rounded-full bg-success-100 dark:bg-success-900/20 flex items-center justify-center">
-                                            <svg class="h-4 w-4 text-success-600 dark:text-success-400"
-                                                fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-black dark:text-white">Task completed</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">5 minutes ago</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="px-4 py-3">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="h-8 w-8 rounded-full bg-warning-100 dark:bg-warning-900/20 flex items-center justify-center">
-                                            <svg class="h-4 w-4 text-warning-600 dark:text-warning-400"
-                                                fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-black dark:text-white">System update
-                                                available</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">1 hour ago</p>
-                                        </div>
-                                    </div>
+                                    </li>
+                                </template>
+
+                                <!-- Empty State -->
+                                <li x-show="notifications.length === 0" class="px-4 py-8 text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 17h5l-5 5v-5zM9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">No notifications</p>
                                 </li>
                             </ul>
+
                             <div class="px-4 py-3 border-t border-stroke dark:border-strokedark">
-                                <a href="#"
+                                <a href="{{ route('admin.leads.index') }}"
                                     class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300">View
-                                    all notifications</a>
+                                    all leads</a>
                             </div>
                         </div>
                     </div>

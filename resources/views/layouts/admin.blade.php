@@ -10,7 +10,7 @@
     <title>@yield('title', 'Admin Dashboard') | Handyvibe Admin</title>
 
     <!-- Tailwind CSS -->
-    @vite(['resources/css/app.css', 'resources/js/admin.js'])
+    @vite(['resources/css/app.css', 'resources/js/admin.js', 'resources/js/notifications.js'])
 
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -32,13 +32,71 @@
 
 <body x-data="{
     page: '{{ $page ?? 'dashboard' }}',
-    'loaded': true,
-    'darkMode': false,
-    'stickyMenu': false,
-    'sidebarToggle': false,
-    'scrollTop': false
+    loaded: true,
+    darkMode: false,
+    stickyMenu: false,
+    sidebarToggle: false,
+    scrollTop: false,
+    notificationOpen: false,
+    notifications: [],
+    notificationCount: 0,
+    notificationsLoading: false,
+    lastNotificationCount: 0,
+
+    // Notification functions
+    async loadNotifications() {
+        if (window.loadNotifications) {
+            await window.loadNotifications();
+            // Update Alpine.js data
+            if (window.notificationSystem) {
+                this.notifications = window.notificationSystem.notifications;
+                this.notificationCount = window.notificationSystem.notificationCount;
+                this.notificationsLoading = window.notificationSystem.notificationsLoading;
+            }
+        }
+    },
+
+    openNotification(notification) {
+        if (window.openNotification) {
+            window.openNotification(notification);
+        }
+    },
+
+    getNotificationIconBg(priority) {
+        if (window.getNotificationIconBg) {
+            return window.getNotificationIconBg(priority);
+        }
+        return 'bg-gray-100 dark:bg-gray-900/20';
+    },
+
+    getPriorityBadgeClass(priority) {
+        if (window.getPriorityBadgeClass) {
+            return window.getPriorityBadgeClass(priority);
+        }
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+    },
+
+    showToastNotification(notification) {
+        if (window.showToastNotification) {
+            window.showToastNotification(notification);
+        }
+    },
+
+    toggleNotificationDropdown() {
+        // Toggle the Alpine.js state directly
+        this.notificationOpen = !this.notificationOpen;
+
+        // Load notifications when opening
+        if (this.notificationOpen) {
+            this.loadNotifications();
+        }
+    }
 }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
-$watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" :class="{ 'dark bg-gray-900': darkMode === true }">
+$watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)));
+// Initialize notification system
+if (window.notificationSystem) {
+    window.notificationSystem.init();
+}" :class="{ 'dark bg-gray-900': darkMode === true }">
 
     <!-- ===== Preloader Start ===== -->
     @include('admin.partials.preloader')

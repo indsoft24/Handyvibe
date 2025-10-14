@@ -58,6 +58,11 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     Route::post('/leads/{lead}/assign', [App\Http\Controllers\Admin\LeadController::class, 'assign'])->name('leads.assign');
     Route::post('/leads/{lead}/add-notes', [App\Http\Controllers\Admin\LeadController::class, 'addNotes'])->name('leads.add-notes');
 
+    // Notifications Management
+    Route::get('/notifications', [App\Http\Controllers\Admin\NotificationController::class, 'getNotifications'])->name('notifications');
+    Route::get('/notifications/stats', [App\Http\Controllers\Admin\NotificationController::class, 'getNotificationStats'])->name('notifications.stats');
+    Route::post('/notifications/mark-read', [App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+
     // User Management Routes
     Route::get('users/stats', [App\Http\Controllers\Admin\UserController::class, 'getStats'])->name('users.stats');
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['create', 'store']);
