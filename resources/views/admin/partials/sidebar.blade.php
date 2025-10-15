@@ -255,7 +255,7 @@
                     <!-- Menu Item Profile -->
 
                     <!-- Menu Item Calendar -->
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('admin.calendar') }}"
                             class="menu-item group {{ request()->routeIs('admin.calendar') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg class="{{ request()->routeIs('admin.calendar') ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}"
@@ -521,7 +521,7 @@
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
-                    </li>
+                    </li> --}}
                     <!-- Menu Item Components -->
 
                 </ul>

@@ -13,15 +13,30 @@ class NotificationSystem {
     }
 
     async init() {
+        console.log("Initializing notification system...");
+
         // Load initial notifications
         await this.loadNotifications();
 
         // Setup real-time updates
         this.initRealTimeNotifications();
+
+        console.log("Notification system initialized");
     }
 
     async loadNotifications() {
         this.notificationsLoading = true;
+
+        // Set a timeout to ensure loading state is cleared
+        const loadingTimeout = setTimeout(() => {
+            if (this.notificationsLoading) {
+                console.warn(
+                    "Notification loading timeout, clearing loading state"
+                );
+                this.notificationsLoading = false;
+                this.updateAlpineData();
+            }
+        }, 10000); // 10 second timeout
 
         try {
             const response = await fetch("/admin/notifications", {
@@ -44,6 +59,7 @@ class NotificationSystem {
             const data = await response.json();
 
             if (data.success) {
+                const previousCount = this.notificationCount;
                 this.notifications = data.notifications;
                 this.notificationCount = data.count;
 
@@ -66,20 +82,26 @@ class NotificationSystem {
                 // Update UI
                 this.updateNotificationUI();
 
-                // Update Alpine.js data
-                if (window.updateAlpineData) {
-                    window.updateAlpineData();
-                }
+                // Update Alpine.js data immediately
+                this.updateAlpineData();
+
+                // Debug logging
+                console.log(
+                    `Notifications updated: ${previousCount} -> ${this.notificationCount}`
+                );
             } else {
-                // Handle API error silently
+                console.error("Failed to load notifications:", data.message);
             }
         } catch (error) {
-            // Handle error silently
+            console.error("Error loading notifications:", error);
             this.notifications = [];
             this.notificationCount = 0;
         } finally {
+            clearTimeout(loadingTimeout);
             this.notificationsLoading = false;
             this.updateLoadingUI();
+            // Force Alpine.js update after loading completes
+            this.updateAlpineData();
         }
     }
 
@@ -121,9 +143,7 @@ class NotificationSystem {
                 this.updateNotificationUI();
 
                 // Update Alpine.js data
-                if (window.updateAlpineData) {
-                    window.updateAlpineData();
-                }
+                this.updateAlpineData();
             }
         } catch (error) {
             // Handle error silently
@@ -155,14 +175,52 @@ class NotificationSystem {
 
     initRealTimeNotifications() {
         try {
+            console.log("Setting up real-time notification polling...");
+
             // Check for new notifications every 15 seconds
             setInterval(async () => {
                 if (!this.notificationOpen) {
+                    console.log("Polling for new notifications...");
                     await this.loadNotifications();
                 }
             }, 15000);
+
+            console.log("Real-time notification polling started");
         } catch (error) {
-            // Handle error silently
+            console.error("Error initializing real-time notifications:", error);
+        }
+    }
+
+    // Manual refresh method
+    async refreshNotifications() {
+        console.log("Manually refreshing notifications...");
+        await this.loadNotifications();
+    }
+
+    // Update Alpine.js data
+    updateAlpineData() {
+        const data = {
+            notifications: this.notifications,
+            notificationCount: this.notificationCount,
+            notificationsLoading: this.notificationsLoading,
+            notificationOpen: this.notificationOpen,
+        };
+
+        // Find Alpine.js component and update its data
+        const alpineComponent = document.querySelector("[x-data]");
+        if (alpineComponent && alpineComponent._x_dataStack) {
+            const alpineData = alpineComponent._x_dataStack[0];
+            if (alpineData) {
+                // Force reactivity by using Alpine's reactive system
+                alpineData.$nextTick(() => {
+                    alpineData.notifications = [...data.notifications];
+                    alpineData.notificationCount = data.notificationCount;
+                    alpineData.notificationsLoading = data.notificationsLoading;
+                    alpineData.notificationOpen = data.notificationOpen;
+                });
+
+                console.log("Alpine.js data updated:", data);
+            }
         }
     }
 
@@ -284,9 +342,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return window.notificationSystem.showToastNotification(notification);
     };
 
+    window.refreshNotifications = () => {
+        return window.notificationSystem.refreshNotifications();
+    };
+
     window.toggleNotificationDropdown = () => {
         // This function is now handled by Alpine.js directly
         return true;
+    };
+
+    // Test function to manually trigger notification check
+    window.testNotifications = () => {
+        console.log("Testing notification system...");
+        window.refreshNotifications();
     };
 
     // Also expose the notification system data for Alpine.js
@@ -312,6 +380,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 alpineData.notificationCount = data.notificationCount;
                 alpineData.notificationsLoading = data.notificationsLoading;
                 alpineData.notificationOpen = data.notificationOpen;
+
+                // Force Alpine.js to re-render
+                alpineComponent._x_dataStack[0].$nextTick(() => {
+                    // Trigger reactivity
+                    alpineData.notifications = [...data.notifications];
+                });
             }
         }
     };
