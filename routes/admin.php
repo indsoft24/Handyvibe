@@ -63,6 +63,32 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     Route::get('/notifications/stats', [App\Http\Controllers\Admin\NotificationController::class, 'getNotificationStats'])->name('notifications.stats');
     Route::post('/notifications/mark-read', [App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
 
+    // Test route for notifications (only in debug mode)
+    Route::get('/notifications/test', function () {
+        if (! config('app.debug')) {
+            abort(404);
+        }
+
+        // Create a test lead
+        $lead = \App\Models\Lead::create([
+            'name' => 'Test User '.now()->format('H:i:s'),
+            'email' => 'test@example.com',
+            'phone' => '1234567890',
+            'message' => 'This is a test notification',
+            'source' => 'test',
+            'status' => 'new',
+            'priority' => 'high',
+            'type' => 'service',
+            'service_name' => 'Test Service',
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Test notification created',
+            'lead_id' => $lead->id,
+        ]);
+    })->name('notifications.test');
+
     // User Management Routes
     Route::get('users/stats', [App\Http\Controllers\Admin\UserController::class, 'getStats'])->name('users.stats');
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['create', 'store']);
@@ -90,55 +116,55 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     });
 
     // Additional Admin Routes
-    Route::get('/calendar', function () {
-        return view('admin.calendar');
-    })->name('calendar');
+    // Route::get('/calendar', function () {
+    //     return view('admin.calendar');
+    // })->name('calendar');
 
-    Route::get('/images', function () {
-        return view('admin.images');
-    })->name('images');
+    // Route::get('/images', function () {
+    //     return view('admin.images');
+    // })->name('images');
 
-    Route::get('/videos', function () {
-        return view('admin.videos');
-    })->name('videos');
+    // Route::get('/videos', function () {
+    //     return view('admin.videos');
+    // })->name('videos');
 
-    Route::get('/tables', function () {
-        return view('admin.tables');
-    })->name('tables');
+    // Route::get('/tables', function () {
+    //     return view('admin.tables');
+    // })->name('tables');
 
-    Route::get('/charts', function () {
-        return view('admin.charts');
-    })->name('charts');
+    // Route::get('/charts', function () {
+    //     return view('admin.charts');
+    // })->name('charts');
 
-    Route::get('/charts/bar', function () {
-        return view('admin.charts.bar');
-    })->name('charts.bar');
+    // Route::get('/charts/bar', function () {
+    //     return view('admin.charts.bar');
+    // })->name('charts.bar');
 
-    Route::get('/charts/line', function () {
-        return view('admin.charts.line');
-    })->name('charts.line');
+    // Route::get('/charts/line', function () {
+    //     return view('admin.charts.line');
+    // })->name('charts.line');
 
-    Route::get('/forms', function () {
-        return view('admin.forms');
-    })->name('forms');
+    // Route::get('/forms', function () {
+    //     return view('admin.forms');
+    // })->name('forms');
 
-    Route::get('/components', function () {
-        return view('admin.components');
-    })->name('components');
+    // Route::get('/components', function () {
+    //     return view('admin.components');
+    // })->name('components');
 
-    Route::get('/components/alerts', function () {
-        return view('admin.components.alerts');
-    })->name('components.alerts');
+    // Route::get('/components/alerts', function () {
+    //     return view('admin.components.alerts');
+    // })->name('components.alerts');
 
-    Route::get('/components/avatars', function () {
-        return view('admin.components.avatars');
-    })->name('components.avatars');
+    // Route::get('/components/avatars', function () {
+    //     return view('admin.components.avatars');
+    // })->name('components.avatars');
 
-    Route::get('/components/badges', function () {
-        return view('admin.components.badges');
-    })->name('components.badges');
+    // Route::get('/components/badges', function () {
+    //     return view('admin.components.badges');
+    // })->name('components.badges');
 
-    Route::get('/components/buttons', function () {
-        return view('admin.components.buttons');
-    })->name('components.buttons');
+    // Route::get('/components/buttons', function () {
+    //     return view('admin.components.buttons');
+    // })->name('components.buttons');
 });

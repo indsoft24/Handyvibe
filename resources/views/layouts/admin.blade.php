@@ -88,6 +88,7 @@
 
         // Load notifications when opening
         if (this.notificationOpen) {
+            console.log('Opening notification dropdown, refreshing notifications...');
             this.loadNotifications();
         }
     }
@@ -96,6 +97,14 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
 // Initialize notification system
 if (window.notificationSystem) {
     window.notificationSystem.init();
+    // Sync initial data
+    setTimeout(() => {
+        if (window.notificationSystem) {
+            this.notifications = window.notificationSystem.notifications;
+            this.notificationCount = window.notificationSystem.notificationCount;
+            this.notificationsLoading = window.notificationSystem.notificationsLoading;
+        }
+    }, 100);
 }" :class="{ 'dark bg-gray-900': darkMode === true }">
 
     <!-- ===== Preloader Start ===== -->
