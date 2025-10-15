@@ -71,15 +71,154 @@
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                 <div class="border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
                     <h3 class="font-semibold text-lg text-gray-900 dark:text-white">About Us</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Manage the about us page content.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Manage the about us page content and information.</p>
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Content</label>
+                
+                <!-- About Content -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Page Content</label>
                     <textarea name="about_us" id="about_us"
                         class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_us') ? 'border-red-500' : '' }}">{{ old('about_us', $pages['about_us']) }}</textarea>
                     @error('about_us')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <!-- Hero Section -->
+                <div class="mb-6">
+                    <h4 class="font-semibold text-md text-gray-900 dark:text-white mb-4">Hero Section</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Hero Title</label>
+                            <input type="text" name="about_hero_title" id="about_hero_title"
+                                class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_hero_title') ? 'border-red-500' : '' }}"
+                                value="{{ old('about_hero_title', $aboutSettings['about_hero_title']) }}"
+                                placeholder="Enter hero title">
+                            @error('about_hero_title')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Hero Subtitle</label>
+                            <input type="text" name="about_hero_subtitle" id="about_hero_subtitle"
+                                class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_hero_subtitle') ? 'border-red-500' : '' }}"
+                                value="{{ old('about_hero_subtitle', $aboutSettings['about_hero_subtitle']) }}"
+                                placeholder="Enter hero subtitle">
+                            @error('about_hero_subtitle')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Hero Description</label>
+                        <textarea name="about_hero_description" id="about_hero_description"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_hero_description') ? 'border-red-500' : '' }}"
+                            rows="3"
+                            placeholder="Enter hero description">{{ old('about_hero_description', $aboutSettings['about_hero_description']) }}</textarea>
+                        @error('about_hero_description')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Story Section -->
+                <div class="mb-6">
+                    <h4 class="font-semibold text-md text-gray-900 dark:text-white mb-4">Story Section</h4>
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Story Title</label>
+                        <input type="text" name="about_story_title" id="about_story_title"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_story_title') ? 'border-red-500' : '' }}"
+                            value="{{ old('about_story_title', $aboutSettings['about_story_title']) }}"
+                            placeholder="Enter story section title">
+                        @error('about_story_title')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Story Content</label>
+                        <textarea name="about_story_content" id="about_story_content"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_story_content') ? 'border-red-500' : '' }}"
+                            rows="5"
+                            placeholder="Enter story content">{{ old('about_story_content', $aboutSettings['about_story_content']) }}</textarea>
+                        @error('about_story_content')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- What We Do Section -->
+                <div class="mb-6">
+                    <h4 class="font-semibold text-md text-gray-900 dark:text-white mb-4">What We Do Section</h4>
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Section Title</label>
+                        <input type="text" name="about_what_we_do_title" id="about_what_we_do_title"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_what_we_do_title') ? 'border-red-500' : '' }}"
+                            value="{{ old('about_what_we_do_title', $aboutSettings['about_what_we_do_title']) }}"
+                            placeholder="Enter what we do title">
+                        @error('about_what_we_do_title')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Section Description</label>
+                        <textarea name="about_what_we_do_description" id="about_what_we_do_description"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_what_we_do_description') ? 'border-red-500' : '' }}"
+                            rows="3"
+                            placeholder="Enter what we do description">{{ old('about_what_we_do_description', $aboutSettings['about_what_we_do_description']) }}</textarea>
+                        @error('about_what_we_do_description')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Quality Section -->
+                <div class="mb-6">
+                    <h4 class="font-semibold text-md text-gray-900 dark:text-white mb-4">Quality Section</h4>
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Quality Title</label>
+                        <input type="text" name="about_quality_title" id="about_quality_title"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_quality_title') ? 'border-red-500' : '' }}"
+                            value="{{ old('about_quality_title', $aboutSettings['about_quality_title']) }}"
+                            placeholder="Enter quality section title">
+                        @error('about_quality_title')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Quality Content</label>
+                        <textarea name="about_quality_content" id="about_quality_content"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_quality_content') ? 'border-red-500' : '' }}"
+                            rows="5"
+                            placeholder="Enter quality content">{{ old('about_quality_content', $aboutSettings['about_quality_content']) }}</textarea>
+                        @error('about_quality_content')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Call to Action Section -->
+                <div class="mb-6">
+                    <h4 class="font-semibold text-md text-gray-900 dark:text-white mb-4">Call to Action Section</h4>
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">CTA Title</label>
+                        <input type="text" name="about_cta_title" id="about_cta_title"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_cta_title') ? 'border-red-500' : '' }}"
+                            value="{{ old('about_cta_title', $aboutSettings['about_cta_title']) }}"
+                            placeholder="Enter CTA title">
+                        @error('about_cta_title')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">CTA Description</label>
+                        <textarea name="about_cta_description" id="about_cta_description"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('about_cta_description') ? 'border-red-500' : '' }}"
+                            rows="3"
+                            placeholder="Enter CTA description">{{ old('about_cta_description', $aboutSettings['about_cta_description']) }}</textarea>
+                        @error('about_cta_description')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
             </div>
 
@@ -103,15 +242,53 @@
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                 <div class="border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
                     <h3 class="font-semibold text-lg text-gray-900 dark:text-white">Contact</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Manage the contact page content.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Manage the contact page content and information.</p>
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Content</label>
+                
+                <!-- Contact Content -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Page Content</label>
                     <textarea name="contact" id="contact"
                         class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('contact') ? 'border-red-500' : '' }}">{{ old('contact', $pages['contact']) }}</textarea>
                     @error('contact')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <!-- Contact Information -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Company Address</label>
+                        <input type="text" name="contact_address" id="contact_address"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('contact_address') ? 'border-red-500' : '' }}"
+                            value="{{ old('contact_address', $contactSettings['contact_address']) }}"
+                            placeholder="Enter company address">
+                        @error('contact_address')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Phone Number</label>
+                        <input type="text" name="contact_phone" id="contact_phone"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('contact_phone') ? 'border-red-500' : '' }}"
+                            value="{{ old('contact_phone', $contactSettings['contact_phone']) }}"
+                            placeholder="Enter phone number">
+                        @error('contact_phone')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Email Address</label>
+                        <input type="email" name="contact_email" id="contact_email"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 {{ $errors->has('contact_email') ? 'border-red-500' : '' }}"
+                            value="{{ old('contact_email', $contactSettings['contact_email']) }}"
+                            placeholder="Enter email address">
+                        @error('contact_email')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
             </div>
 
@@ -174,7 +351,9 @@
                 'help',
                 'contact',
                 'team',
-                'privacy_policy'
+                'privacy_policy',
+                'about_story_content',
+                'about_quality_content'
             ];
 
             editors.forEach(editorId => {

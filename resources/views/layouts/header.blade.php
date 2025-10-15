@@ -66,7 +66,12 @@
               </ul>
             </li>
           @else
-            <li><a href="{{ route('login') }}">Login</a></li>
+            <li class="login-btn-wrapper">
+              <a href="{{ route('login') }}" class="login-btn">
+                <i class="icon-user"></i>
+                Login
+              </a>
+            </li>
           @endauth
         </ul>
       </div>
@@ -90,18 +95,31 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  padding: 10px 0;
 }
 
 .fh5co-nav .container {
-  max-width: 1200px;
+  max-width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.fh5co-nav .row {
+  margin: 0;
+}
+
+.fh5co-nav .col-xs-2,
+.fh5co-nav .col-xs-10 {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .fh5co-nav ul li {
-  margin: 0 5px;
+  margin: 0 2px;
 }
 
 .fh5co-nav ul li a {
-  padding: 30px 15px;
+  padding: 25px 6px;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -114,20 +132,20 @@
 /* Search form styling */
 .fh5co-nav .search {
   position: relative;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .fh5co-nav .search input[type="text"] {
   padding: 8px 40px 8px 12px;
   border: 1px solid #ddd;
   border-radius: 25px;
-  width: 200px;
+  width: 150px;
   font-size: 14px;
   transition: all 0.3s ease;
 }
 
 .fh5co-nav .search input[type="text"]:focus {
-  width: 250px;
+  width: 200px;
   border-color: #d8692a;
   outline: none;
 }
@@ -152,7 +170,7 @@
 
 /* Cart styling */
 .fh5co-nav .shopping-cart {
-  margin-left: 15px;
+  margin-left: 8px;
 }
 
 .fh5co-nav .cart {
@@ -168,20 +186,44 @@
   color: white;
 }
 
-.fh5co-nav .cart-count {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: #d8692a;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 12px;
-  display: flex;
+/* Professional Login Button Styling */
+.fh5co-nav .login-btn-wrapper {
+  margin-left: 10px;
+}
+
+.fh5co-nav .login-btn {
+  background: linear-gradient(135deg, #d8692a 0%, #b8561f 100%);
+  color: #fff !important;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(216, 105, 42, 0.3);
+  border: none;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-weight: bold;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.fh5co-nav .login-btn:hover {
+  background: linear-gradient(135deg, #b8561f 0%, #9a4a1a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(216, 105, 42, 0.4);
+  color: #fff !important;
+}
+
+.fh5co-nav .login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(216, 105, 42, 0.3);
+}
+
+.fh5co-nav .login-btn i {
+  font-size: 16px;
+  margin-right: 4px;
 }
 
 /* Dropdown icon styling for laptop screens */
@@ -225,6 +267,11 @@
 
 /* Mobile responsiveness */
 @media screen and (max-width: 768px) {
+  .fh5co-nav .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
   .fh5co-nav .search {
     display: none;
   }
@@ -234,15 +281,44 @@
   }
   
   .fh5co-nav ul li a {
-    padding: 20px 10px;
+    padding: 20px 4px;
     font-size: 12px;
+  }
+  
+  .fh5co-nav .col-xs-2,
+  .fh5co-nav .col-xs-10 {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  
+  .fh5co-nav .login-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  
+  .fh5co-nav .login-btn-wrapper {
+    margin-left: 5px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .fh5co-nav ul li a {
-    padding: 15px 8px;
+    padding: 15px 3px;
     font-size: 11px;
+  }
+  
+  .fh5co-nav .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .fh5co-nav .login-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+  
+  .fh5co-nav .login-btn i {
+    font-size: 14px;
   }
 }
 </style>

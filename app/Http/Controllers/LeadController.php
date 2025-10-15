@@ -20,6 +20,7 @@ class LeadController extends Controller
             'phone' => 'nullable|string|max:20',
             'company' => 'nullable|string|max:255',
             'message' => 'required|string',
+            'subject' => 'nullable|string|max:255',
             'source' => 'required|in:website,phone,email,social,referral',
             'type' => 'required|in:service,product,general',
             'service_id' => 'nullable|integer',

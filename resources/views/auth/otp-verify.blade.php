@@ -3,18 +3,17 @@
 @section('title', 'Verify OTP - Handyvibe')
 
 @section('content')
-    <div class="fh5co-hero">
-        <div class="fh5co-overlay"></div>
-        <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5"
+    <div class="otp-hero">
+        <div class="otp-overlay"></div>
+        <div class="otp-cover text-center" data-stellar-background-ratio="0.5"
             style="background-image: url({{ asset('images/img_bg_3.jpg') }});">
-            <div class="desc animate-box">
+            <div class="otp-desc">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <div class="panel panel-default"
-                                style="background: rgba(255,255,255,0.95); padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-                                <div class="panel-heading">
-                                    <h2 class="fh5co-heading" style="color: #333; margin-bottom: 30px;">
+                    <div class="row justify-content-center align-items-center" style="min-height: 85vh;">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="otp-panel">
+                                <div class="otp-header">
+                                    <h2>
                                         @if (session('type') === 'registration')
                                             Verify Registration
                                         @else
@@ -22,7 +21,7 @@
                                         @endif
                                     </h2>
                                 </div>
-                                <div class="panel-body">
+                                <div class="otp-body">
                                     @if (session('success'))
                                         <div class="alert alert-success">
                                             {{ session('success') }}
@@ -51,17 +50,16 @@
 
                                         <input type="hidden" name="email" value="{{ session('email') }}">
 
-                                        <div class="form-group">
-                                            <label for="otp" class="control-label">Enter OTP Code</label>
-                                            <input type="text" class="form-control text-center" id="otp"
+                                        <div class="form-group mb-4 position-relative">
+                                            <label for="otp" class="form-label fw-bold">Enter OTP Code</label>
+                                            <input type="text" class="form-control styled-input text-center" id="otp"
                                                 name="otp" maxlength="6" pattern="[0-9]{6}" required autofocus
                                                 style="font-size: 24px; letter-spacing: 5px; font-weight: bold;">
                                             <small class="text-muted">Enter the 6-digit code sent to your email</small>
                                         </div>
 
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block"
-                                                style="background: #007bff; border: none; padding: 12px; font-size: 16px;">
+                                            <button type="submit" class="btn btn-primary btn-block otp-btn">
                                                 @if (session('type') === 'registration')
                                                     Complete Registration
                                                 @else
@@ -70,14 +68,14 @@
                                             </button>
                                         </div>
 
-                                        <div class="text-center">
-                                            <p>Didn't receive the OTP?</p>
+                                        <div class="text-center mt-4">
+                                            <p class="mb-2">Didn't receive the OTP?</p>
                                             <form method="POST" action="{{ route('otp.resend') }}"
                                                 style="display: inline;">
                                                 @csrf
                                                 <input type="hidden" name="email" value="{{ session('email') }}">
                                                 <input type="hidden" name="type" value="{{ session('type') }}">
-                                                <button type="submit" class="btn btn-link" style="color: #007bff;">
+                                                <button type="submit" class="btn btn-link text-primary fw-bold text-decoration-none">
                                                     Resend OTP
                                                 </button>
                                             </form>
@@ -85,7 +83,7 @@
 
                                         <div class="text-center mt-3">
                                             <a href="{{ session('type') === 'registration' ? route('register') : route('login') }}"
-                                                style="color: #6c757d;">
+                                                class="text-muted text-decoration-none">
                                                 ← Back to
                                                 {{ session('type') === 'registration' ? 'Registration' : 'Login' }}
                                             </a>
@@ -93,6 +91,7 @@
                                     </form>
                                 </div>
                             </div>
+                            <!-- otp-panel -->
                         </div>
                     </div>
                 </div>
@@ -100,42 +99,89 @@
         </div>
     </div>
 
+    <!-- Custom OTP Verification Form Styles -->
     <style>
-        .fh5co-hero {
+        .otp-hero {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
+            position: relative;
+            background: #f7f9fc;
         }
-
-        .panel {
-            margin-top: 50px;
+        .otp-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(115deg, #dde7f5cc 60%, #fafcffcc 100%);
+            z-index: 1;
         }
+        .otp-cover {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .otp-desc { position: relative; z-index: 2; }
 
-        .form-group {
+        .otp-panel {
+            background: #ffffff;
+            padding: 36px 28px 32px 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(98,119,164,0.16);
+            max-width: 440px;
+            margin: 0 auto;
+            border: 1px solid #e6ebf4;
+        }
+        .otp-header h2 {
+            font-weight: bold;
+            color: #293b6b;
             margin-bottom: 20px;
+            letter-spacing: 0.5px;
         }
+        .otp-body { position: relative; }
 
-        .form-control {
-            height: 45px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            padding: 10px 15px;
+        .styled-input {
+            padding-left: 38px;
+            padding-right: 12px;
+            border-radius: 8px;
+            border: 1px solid #d5deef;
+            box-shadow: none !important;
+            font-size: 15px;
+            transition: border-color .2s, box-shadow .2s;
+            height: 44px;
+            background: #f7faff;
         }
-
-        .form-control:focus {
+        .styled-input:focus {
             border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+            background: #ffffff;
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba(0,123,255,.1);
         }
-
+        .form-label {
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #405d9b;
+            background: transparent;
+        }
+        .btn.otp-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(90deg,#007bff 85%, #355cec 100%);
+            border: none;
+            color: #fff !important;
+            padding: 14px;
+            font-size: 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            box-shadow: 0 2px 12px #007bff20;
+        }
+        .btn.otp-btn:hover, .btn.otp-btn:focus {
+            background: linear-gradient(90deg,#355cec 85%, #007bff 100%);
+            color: #fff !important;
+        }
         .alert {
-            border-radius: 5px;
+            border-radius: 8px;
             margin-bottom: 20px;
         }
-
-        .btn-primary:hover {
-            background: #0056b3 !important;
-        }
-
         .btn-link:hover {
             text-decoration: underline;
         }

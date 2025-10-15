@@ -5,16 +5,16 @@
 @section('content')
     {{-- Hero Header --}}
     <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner"
-        style="background-image:url({{ asset('images/img_bg_2.jpg') }});">
+        style="background-image:url({{ asset($bannerImage) }});">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeIn">
-                            <h1>About HandyVibe</h1>
-                            <h2>One App. All Services. Anytime.</h2>
-                            <p>Bringing qualified experts to your doorstep for home solutions and beauty services.</p>
+                            <h1>{{ $aboutSettings['hero_title'] }}</h1>
+                            <h2>{{ $aboutSettings['hero_subtitle'] }}</h2>
+                            <p>{{ $aboutSettings['hero_description'] }}</p>
                         </div>
                     </div>
                 </div>
@@ -25,14 +25,27 @@
     {{-- Main About Section --}}
     <div id="fh5co-about">
         <div class="container">
+            @if($aboutContent)
+            <div class="row">
+                <div class="col-md-12 animate-box">
+                    <div class="about-content">
+                        {!! $aboutContent !!}
+                    </div>
+                </div>
+            </div>
+            @endif
             
             {{-- Our Story Section with Split Layout --}}
             <div class="row animate-box section-padding">
                 <div class="col-md-6">
-                    <h2>Our Story & Mission</h2>
-                    <p>HandyVibe is a reliable online platform connecting consumers with qualified service professionals right at their doorstep.</p>
-                    <p>No more running around for daily chores. The concept is simple: quality service in minimal time, saving both time and money from the comfort of your home[web:2][web:6].</p>
-                    <p>Our mission is to connect with the maximum number of consumers and deliver high-quality, standardized, and reliable services across home and beauty categories[web:4][web:6].</p>
+                    <h2>{{ $aboutSettings['story_title'] }}</h2>
+                    @if($aboutSettings['story_content'])
+                        {!! $aboutSettings['story_content'] !!}
+                    @else
+                        <p>HandyVibe is a reliable online platform connecting consumers with qualified service professionals right at their doorstep.</p>
+                        <p>No more running around for daily chores. The concept is simple: quality service in minimal time, saving both time and money from the comfort of your home.</p>
+                        <p>Our mission is to connect with the maximum number of consumers and deliver high-quality, standardized, and reliable services across home and beauty categories.</p>
+                    @endif
                 </div>
                 <div class="col-md-6">
                     <img class="img-responsive rounded-img" src="{{ asset('images/img_bg_2.jpg') }}" 
@@ -43,8 +56,8 @@
             {{-- What We Do Section --}}
             <div class="row animate-box section-padding bg-light">
                 <div class="col-md-12 text-center">
-                    <h2>What We Do</h2>
-                    <p class="lead">Our platform makes it simple to book essential services right to your door.</p>
+                    <h2>{{ $aboutSettings['what_we_do_title'] }}</h2>
+                    <p class="lead">{{ $aboutSettings['what_we_do_description'] }}</p>
                 </div>
             </div>
 
@@ -101,26 +114,30 @@
                          alt="Trained service professionals delivering quality work">
                 </div>
                 <div class="col-md-6">
-                    <h2>How We Deliver Quality</h2>
-                    <p>We go beyond simply listing providers. HandyVibe manages the entire service experience to ensure quality and reliability.</p>
-                    
-                    <div class="quality-points">
-                        <div class="quality-item">
-                            <i class="icon-users"></i>
-                            <h4>Trained Professionals</h4>
-                            <p>Services delivered by a network of trained, independent service professionals.</p>
+                    <h2>{{ $aboutSettings['quality_title'] }}</h2>
+                    @if($aboutSettings['quality_content'])
+                        {!! $aboutSettings['quality_content'] !!}
+                    @else
+                        <p>We go beyond simply listing providers. HandyVibe manages the entire service experience to ensure quality and reliability.</p>
+                        
+                        <div class="quality-points">
+                            <div class="quality-item">
+                                <i class="icon-users"></i>
+                                <h4>Trained Professionals</h4>
+                                <p>Services delivered by a network of trained, independent service professionals.</p>
+                            </div>
+                            <div class="quality-item">
+                                <i class="icon-shield"></i>
+                                <h4>Quality Assurance</h4>
+                                <p>Every service meets a consistent standard of quality and professionalism.</p>
+                            </div>
+                            <div class="quality-item">
+                                <i class="icon-mobile"></i>
+                                <h4>Technology-Driven</h4>
+                                <p>Our full-stack approach guarantees seamless service from booking to completion.</p>
+                            </div>
                         </div>
-                        <div class="quality-item">
-                            <i class="icon-shield"></i>
-                            <h4>Quality Assurance</h4>
-                            <p>Every service meets a consistent standard of quality and professionalism.</p>
-                        </div>
-                        <div class="quality-item">
-                            <i class="icon-mobile"></i>
-                            <h4>Technology-Driven</h4>
-                            <p>Our full-stack approach guarantees seamless service from booking to completion.</p>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -199,8 +216,8 @@
             <div class="row animate-box section-padding">
                 <div class="col-md-12 text-center">
                     <div class="cta-section">
-                        <h2>Ready to Experience Hassle-Free Services?</h2>
-                        <p>Download the HandyVibe app and get started today.</p>
+                        <h2>{{ $aboutSettings['cta_title'] }}</h2>
+                        <p>{{ $aboutSettings['cta_description'] }}</p>
                         <a href="{{ route('services') }}" class="btn btn-primary btn-lg">Explore Services</a>
                         <a href="{{ route('contact') }}" class="btn btn-outline btn-lg">Contact Us</a>
                     </div>

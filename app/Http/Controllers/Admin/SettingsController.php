@@ -35,7 +35,29 @@ class SettingsController extends Controller
             'privacy_policy' => Setting::get('privacy_policy', ''),
         ];
 
-        return view('admin.settings.pages', compact('pages'));
+        // Get contact page specific settings
+        $contactSettings = [
+            'contact_address' => Setting::get('contact_address', '[Your Company Address]'),
+            'contact_phone' => Setting::get('contact_phone', '[Your Contact Number]'),
+            'contact_email' => Setting::get('contact_email', '[Your Company Email]'),
+        ];
+
+        // Get about page specific settings
+        $aboutSettings = [
+            'about_hero_title' => Setting::get('about_hero_title', 'About HandyVibe'),
+            'about_hero_subtitle' => Setting::get('about_hero_subtitle', 'One App. All Services. Anytime.'),
+            'about_hero_description' => Setting::get('about_hero_description', 'Bringing qualified experts to your doorstep for home solutions and beauty services.'),
+            'about_story_title' => Setting::get('about_story_title', 'Our Story & Mission'),
+            'about_story_content' => Setting::get('about_story_content', ''),
+            'about_what_we_do_title' => Setting::get('about_what_we_do_title', 'What We Do'),
+            'about_what_we_do_description' => Setting::get('about_what_we_do_description', 'Our platform makes it simple to book essential services right to your door.'),
+            'about_quality_title' => Setting::get('about_quality_title', 'How We Deliver Quality'),
+            'about_quality_content' => Setting::get('about_quality_content', ''),
+            'about_cta_title' => Setting::get('about_cta_title', 'Ready to Experience Hassle-Free Services?'),
+            'about_cta_description' => Setting::get('about_cta_description', 'Download the HandyVibe app and get started today.'),
+        ];
+
+        return view('admin.settings.pages', compact('pages', 'contactSettings', 'aboutSettings'));
     }
 
     /**
@@ -50,6 +72,20 @@ class SettingsController extends Controller
             'contact' => 'nullable|string',
             'team' => 'nullable|string',
             'privacy_policy' => 'nullable|string',
+            'contact_address' => 'nullable|string|max:255',
+            'contact_phone' => 'nullable|string|max:20',
+            'contact_email' => 'nullable|email|max:255',
+            'about_hero_title' => 'nullable|string|max:255',
+            'about_hero_subtitle' => 'nullable|string|max:255',
+            'about_hero_description' => 'nullable|string|max:500',
+            'about_story_title' => 'nullable|string|max:255',
+            'about_story_content' => 'nullable|string',
+            'about_what_we_do_title' => 'nullable|string|max:255',
+            'about_what_we_do_description' => 'nullable|string|max:500',
+            'about_quality_title' => 'nullable|string|max:255',
+            'about_quality_content' => 'nullable|string',
+            'about_cta_title' => 'nullable|string|max:255',
+            'about_cta_description' => 'nullable|string|max:500',
         ]);
 
         if ($validator->fails()) {
@@ -65,6 +101,24 @@ class SettingsController extends Controller
         Setting::set('contact', $request->contact, 'textarea', 'pages', 'Contact page content');
         Setting::set('team', $request->team, 'textarea', 'pages', 'Team page content');
         Setting::set('privacy_policy', $request->privacy_policy, 'textarea', 'pages', 'Privacy Policy page content');
+
+        // Update contact page specific settings
+        Setting::set('contact_address', $request->contact_address, 'text', 'contact', 'Company address for contact page');
+        Setting::set('contact_phone', $request->contact_phone, 'text', 'contact', 'Company phone number for contact page');
+        Setting::set('contact_email', $request->contact_email, 'text', 'contact', 'Company email for contact page');
+
+        // Update about page specific settings
+        Setting::set('about_hero_title', $request->about_hero_title, 'text', 'about', 'About page hero title');
+        Setting::set('about_hero_subtitle', $request->about_hero_subtitle, 'text', 'about', 'About page hero subtitle');
+        Setting::set('about_hero_description', $request->about_hero_description, 'text', 'about', 'About page hero description');
+        Setting::set('about_story_title', $request->about_story_title, 'text', 'about', 'About page story section title');
+        Setting::set('about_story_content', $request->about_story_content, 'textarea', 'about', 'About page story section content');
+        Setting::set('about_what_we_do_title', $request->about_what_we_do_title, 'text', 'about', 'About page what we do title');
+        Setting::set('about_what_we_do_description', $request->about_what_we_do_description, 'text', 'about', 'About page what we do description');
+        Setting::set('about_quality_title', $request->about_quality_title, 'text', 'about', 'About page quality section title');
+        Setting::set('about_quality_content', $request->about_quality_content, 'textarea', 'about', 'About page quality section content');
+        Setting::set('about_cta_title', $request->about_cta_title, 'text', 'about', 'About page CTA title');
+        Setting::set('about_cta_description', $request->about_cta_description, 'text', 'about', 'About page CTA description');
 
         return redirect()->back()->with('success', 'Page contents updated successfully!');
     }

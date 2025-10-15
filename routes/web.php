@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,13 +14,9 @@ Route::get('/', function () {
     return view('home', compact('featuredProducts'));
 })->name('home');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
 

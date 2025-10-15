@@ -3,36 +3,32 @@
           <div class="row row-pb-md">
               <div class="col-md-4 fh5co-widget">
                   <h3>HandyVibe.</h3>
-                  <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta
-                      adipisci architecto culpa amet.</p>
+                  <p>Your satisfaction is our top priority at HandyVibe. We will always be pleased to hear from you whether you need help, have inquiries about our services, or simply want to say hello.</p>
               </div>
               <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
                   <ul class="fh5co-footer-links">
-                      <li><a href="#">About</a></li>
-                      <li><a href="#">Help</a></li>
-                      <li><a href="#">Contact</a></li>
-                      <li><a href="#">Terms</a></li>
-                      <li><a href="#">Meetups</a></li>
+                      <li><a href="{{ route('about') }}">About</a></li>
+                      <li><a href="{{ route('contact') }}">Contact</a></li>
+                      <li><a href="{{ route('services') }}">Services</a></li>
+                      <li><a href="{{ route('product') }}">Products</a></li>
                   </ul>
               </div>
 
               <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
                   <ul class="fh5co-footer-links">
-                      <li><a href="#">Shop</a></li>
-                      <li><a href="#">Privacy</a></li>
-                      <li><a href="#">Testimonials</a></li>
-                      <li><a href="#">Handbook</a></li>
-                      <li><a href="#">Held Desk</a></li>
+                      <li><a href="{{ route('login') }}">Login</a></li>
+                      <li><a href="{{ route('register') }}">Register</a></li>
+                      <li><a href="{{ route('home') }}">Home</a></li>
+                      <li><a href="{{ route('admin.dashboard') }}">Admin</a></li>
                   </ul>
               </div>
 
               <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
                   <ul class="fh5co-footer-links">
-                      <li><a href="#">Find Designers</a></li>
-                      <li><a href="#">Find Developers</a></li>
-                      <li><a href="#">Teams</a></li>
-                      <li><a href="#">Advertise</a></li>
-                      <li><a href="#">API</a></li>
+                      <li><a href="{{ route('home') }}">Home</a></li>
+                      <li><a href="{{ route('about') }}">About Us</a></li>
+                      <li><a href="{{ route('contact') }}">Get In Touch</a></li>
+                      <li><a href="{{ route('services') }}">Our Services</a></li>
                   </ul>
               </div>
           </div>
