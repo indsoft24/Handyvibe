@@ -194,10 +194,35 @@ class OtpService
             }
 
             if ($type === 'registration') {
-                return $this->sendRegistrationOtp($email);
-            } else {
-                return $this->sendLoginOtp($email);
+                // Always resend a fresh registration OTP regardless of pre-existing user
+                $otp = Otp::generate($email, null, 'registration');
+                $this->sendOtpEmail($email, $otp->otp_code, 'Registration');
+                return [
+                    'success' => true,
+                    'message' => 'OTP resent successfully.',
+                ];
             }
+
+            // For login, ensure user exists and active
+            $user = User::where('email', $email)->first();
+            if (! $user) {
+                return [
+                    'success' => false,
+                    'message' => 'No account found with this email address.',
+                ];
+            }
+            if (! $user->isActive()) {
+                return [
+                    'success' => false,
+                    'message' => 'Your account is inactive. Please contact support.',
+                ];
+            }
+            $otp = Otp::generate($email, $user->mobile, 'login');
+            $this->sendOtpEmail($email, $otp->otp_code, 'Login');
+            return [
+                'success' => true,
+                'message' => 'OTP resent successfully.',
+            ];
         } catch (\Exception $e) {
             Log::error('Resend OTP Error: '.$e->getMessage());
 

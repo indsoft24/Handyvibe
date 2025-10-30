@@ -42,9 +42,9 @@
           
           <!-- Cart -->
           <li class="shopping-cart">
-            <a href="#" class="cart">
+            <a href="{{ route('cart.index') }}" class="cart">
               <span><i class="icon-shopping-cart"></i></span>
-              <span class="cart-count">0</span>
+              <span class="cart-count">{{ (session('cart.products') ? collect(session('cart.products'))->sum('quantity') : 0) + (session('cart.services') ? count(session('cart.services')) : 0) }}</span>
             </a>
           </li>
           
@@ -55,8 +55,13 @@
                 <i class="icon-user"></i> {{ Auth::user()->name }}
               </a>
               <ul class="dropdown">
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Orders</a></li>
+                @if(Auth::user()->user_type === 'vendor')
+                  <li><a href="{{ route('vendor.dashboard') }}">Vendor Panel</a></li>
+                @else
+                  <li><a href="{{ route('user.dashboard') }}">My Account</a></li>
+                @endif
+                <li><a href="{{ route('profile.edit') }}">Profile</a></li>
+                <li><a href="{{ route('cart.index') }}">Cart</a></li>
                 <li>
                   <a href="{{ route('logout') }}"
                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

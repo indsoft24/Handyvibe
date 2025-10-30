@@ -25,10 +25,10 @@
 
               <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
                   <ul class="fh5co-footer-links">
-                      <li><a href="{{ route('home') }}">Home</a></li>
-                      <li><a href="{{ route('about') }}">About Us</a></li>
+                      <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
+                      <li><a href="{{ route('terms') }}">Terms & Conditions</a></li>
+                      <li><a href="{{ route('disclaimer') }}">Disclaimer</a></li>
                       <li><a href="{{ route('contact') }}">Get In Touch</a></li>
-                      <li><a href="{{ route('services') }}">Our Services</a></li>
                   </ul>
               </div>
           </div>

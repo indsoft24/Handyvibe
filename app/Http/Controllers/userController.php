@@ -102,7 +102,8 @@ class userController extends Controller
             // Clear session data
             session()->forget('user_data');
             Auth::login($result['user']);
-            return redirect('/')->with('success', 'Registration completed successfully!');
+            $redirect = ($result['user']->user_type === 'vendor') ? route('vendor.dashboard') : route('profile.edit');
+            return redirect($redirect)->with('success', 'Registration completed successfully!');
         }
 
         return redirect()->back()
@@ -160,7 +161,9 @@ class userController extends Controller
         if ($result['success']) {
             Auth::login($result['user']);
             $request->session()->regenerate();
-            return redirect()->intended('/')->with('success', 'Login successful!');
+            $user = $result['user'];
+            $redirect = ($user->user_type === 'vendor') ? route('vendor.dashboard') : route('profile.edit');
+            return redirect()->intended($redirect)->with('success', 'Login successful!');
         }
 
         return redirect()->back()
@@ -200,10 +203,53 @@ class userController extends Controller
         $result = $this->otpService->resendOtp($email, $type);
 
         if ($result['success']) {
-            return redirect()->back()->with('success', $result['message']);
+            return redirect()->back()
+                ->with('success', $result['message'])
+                ->with('email', $email)
+                ->with('type', $type);
         }
 
-        return redirect()->back()->withErrors(['otp' => $result['message']]);
+        return redirect()->back()
+            ->withErrors(['otp' => $result['message']])
+            ->withInput()
+            ->with('email', $email)
+            ->with('type', $type);
+    }
+
+    /**
+     * General user profile (non-vendor) edit
+     */
+    public function editProfile()
+    {
+        return view('profile.edit', ['user' => Auth::user()]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'mobile' => 'nullable|string|max:20|unique:users,mobile,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data = $validator->validated();
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        // Update via query builder to satisfy static analysis and avoid null user issues
+        \App\Models\User::whereKey(Auth::id())->update($data);
+
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully');
     }
 
 }

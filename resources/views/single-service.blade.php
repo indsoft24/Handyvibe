@@ -100,8 +100,11 @@
                                 @endif
                                 
                                 <div class="service-actions">
-                                    <p><a href="#" class="btn btn-primary btn-outline btn-lg">Book Now</a></p>
-                                    <p><a href="#" class="btn btn-success btn-outline btn-lg">Get Quote</a></p>
+                                    <form action="{{ route('cart.add.service', $service) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-outline btn-lg">Book Service</button>
+                                    </form>
+                                    <a href="{{ route('contact') }}" class="btn btn-success btn-outline btn-lg">Get Quote</a>
                                 </div>
                             </div>
                         </div>

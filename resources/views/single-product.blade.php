@@ -91,8 +91,15 @@
                                     </div>
                                     
                                     @if($product->in_stock)
-                                        <p><a href="#" class="btn btn-primary btn-outline btn-lg">Add to Cart</a></p>
-                                        <p><a href="#" class="btn btn-success btn-outline btn-lg">Buy Now</a></p>
+                                        <form action="{{ route('cart.add.product', $product) }}" method="POST" class="form-inline">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="qty" class="sr-only">Qty</label>
+                                                <input id="qty" type="number" name="quantity" value="1" min="1" class="form-control" style="width:100px; display:inline-block; margin-right:8px;">
+                                            </div>
+                                            <button class="btn btn-primary btn-outline btn-lg" type="submit">Add to Cart</button>
+                                            <a href="{{ route('cart.index') }}" class="btn btn-success btn-outline btn-lg" style="margin-left:8px;">Go to Cart</a>
+                                        </form>
                                     @else
                                         <p><a href="#" class="btn btn-secondary btn-outline btn-lg disabled">Out of Stock</a></p>
                                     @endif

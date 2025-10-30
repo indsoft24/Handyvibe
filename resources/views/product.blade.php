@@ -39,7 +39,6 @@
                                 @endif
                                 <div class="inner">
                                     <p>
-                                        <a href="{{ route('product.show', $product) }}" class="icon"><i class="icon-shopping-cart"></i></a>
                                         <a href="{{ route('product.show', $product) }}" class="icon"><i class="icon-eye"></i></a>
                                     </p>
                                 </div>
@@ -54,6 +53,11 @@
                                         ₹{{ number_format($product->price, 2) }}
                                     @endif
                                 </span>
+                                <form action="{{ route('cart.add.product', $product) }}" method="POST" class="mt-2">
+                                    @csrf
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button class="btn btn-primary btn-sm">Add to Cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -44,7 +44,7 @@
                                         <strong>{{ session('email') }}</strong>
                                     </div>
 
-                                    <form method="POST"
+                                    <form id="otpVerifyForm" method="POST"
                                         action="{{ session('type') === 'registration' ? route('otp.verify.registration') : route('otp.verify.login') }}">
                                         @csrf
 
@@ -70,15 +70,10 @@
 
                                         <div class="text-center mt-4">
                                             <p class="mb-2">Didn't receive the OTP?</p>
-                                            <form method="POST" action="{{ route('otp.resend') }}"
-                                                style="display: inline;">
-                                                @csrf
-                                                <input type="hidden" name="email" value="{{ session('email') }}">
-                                                <input type="hidden" name="type" value="{{ session('type') }}">
-                                                <button type="submit" class="btn btn-link text-primary fw-bold text-decoration-none">
-                                                    Resend OTP
-                                                </button>
-                                            </form>
+                                            <button type="submit" form="resendOtpForm" formnovalidate
+                                                class="btn btn-link text-primary fw-bold text-decoration-none">
+                                                Resend OTP
+                                            </button>
                                         </div>
 
                                         <div class="text-center mt-3">
@@ -88,6 +83,12 @@
                                                 {{ session('type') === 'registration' ? 'Registration' : 'Login' }}
                                             </a>
                                         </div>
+                                    </form>
+                                    <!-- Separate resend form to avoid OTP required blocking -->
+                                    <form id="resendOtpForm" method="POST" action="{{ route('otp.resend') }}">
+                                        @csrf
+                                        <input type="hidden" name="email" value="{{ session('email') }}">
+                                        <input type="hidden" name="type" value="{{ session('type') }}">
                                     </form>
                                 </div>
                             </div>
