@@ -26,41 +26,151 @@
 
 		$('#page').prepend('<div id="fh5co-offcanvas" />');
 		$('#page').prepend('<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle fh5co-nav-white"><i></i></a>');
+		
+		// Create mobile menu structure
+		var mobileMenuHTML = `
+			<div class="mobile-menu-header">
+				<h3>Menu</h3>
+			</div>
+			<div class="mobile-menu-content">
+				<ul class="mobile-menu-list"></ul>
+			</div>
+		`;
+		
+		$('#fh5co-offcanvas').html(mobileMenuHTML);
+		
+		// Clone and organize menu items
 		var clone1 = $('.menu-1 > ul').clone();
-		$('#fh5co-offcanvas').append(clone1);
 		var clone2 = $('.menu-2 > ul').clone();
-		$('#fh5co-offcanvas').append(clone2);
+		
+		// Combine and clean up menu items
+		var allMenuItems = clone1.add(clone2.find('li'));
+		var mainMenuItems = [];
+		var searchItem = null;
+		var cartItem = null;
+		var loginItem = null;
+		
+		allMenuItems.each(function() {
+			var $item = $(this);
+			$item.removeClass('has-dropdown');
+			$item.addClass('mobile-menu-item');
+			
+			// Add proper classes for styling
+			if ($item.hasClass('search')) {
+				$item.addClass('mobile-search-item');
+				searchItem = $item;
+			} else if ($item.hasClass('shopping-cart')) {
+				$item.addClass('mobile-cart-item');
+				cartItem = $item;
+			} else if ($item.hasClass('login-btn-wrapper')) {
+				loginItem = $item;
+			} else if ($item.find('ul').length > 0) {
+				$item.addClass('offcanvas-has-dropdown');
+				mainMenuItems.push($item);
+			} else {
+				mainMenuItems.push($item);
+			}
+		});
+		
+		// Append items in correct order
+		var $menuList = $('#fh5co-offcanvas .mobile-menu-list');
+		
+		// Add main navigation items
+		mainMenuItems.forEach(function(item) {
+			$menuList.append(item);
+		});
+		
+		// Add search section
+		if (searchItem) {
+			$menuList.append(searchItem);
+		}
+		
+		// Create bottom row container for cart and login
+		if (cartItem || loginItem) {
+			var $bottomRow = $('<div class="mobile-menu-bottom"></div>');
+			
+			if (cartItem) {
+				$bottomRow.append(cartItem);
+			}
+			if (loginItem) {
+				$bottomRow.append(loginItem);
+			}
+			
+			$menuList.append($bottomRow);
+		}
 
-		$('#fh5co-offcanvas .has-dropdown').addClass('offcanvas-has-dropdown');
-		$('#fh5co-offcanvas')
-			.find('li')
-			.removeClass('has-dropdown');
-
-		// Hover dropdown menu on mobile
-		$('.offcanvas-has-dropdown').mouseenter(function(){
+		// Add dropdown arrows to items that have dropdowns
+		$('#fh5co-offcanvas .offcanvas-has-dropdown > a').each(function() {
 			var $this = $(this);
-
-			$this
-				.addClass('active')
-				.find('ul')
-				.slideDown(500, 'easeOutExpo');				
-		}).mouseleave(function(){
-
-			var $this = $(this);
-			$this
-				.removeClass('active')
-				.find('ul')
-				.slideUp(500, 'easeOutExpo');				
+			// Remove any existing arrows first
+			$this.find('.dropdown-arrow').remove();
+			
+			// Add dropdown arrow
+			$this.append('<i class="dropdown-arrow icon-arrow-down"></i>');
 		});
 
+		// Enhanced click dropdown menu on mobile
+		$('#fh5co-offcanvas').on('click', '.offcanvas-has-dropdown > a', function(e){
+			e.preventDefault();
+			e.stopPropagation(); // Prevent event bubbling
+			e.stopImmediatePropagation(); // Stop all event handlers
+			
+			var $this = $(this).parent();
+			var $arrow = $(this).find('.dropdown-arrow');
+			
+			if ($this.hasClass('active')) {
+				$this.removeClass('active').find('ul').slideUp(300);
+				$arrow.removeClass('icon-arrow-up').addClass('icon-arrow-down');
+			} else {
+				$('.offcanvas-has-dropdown.active').removeClass('active').find('ul').slideUp(300);
+				$('.offcanvas-has-dropdown.active > a .dropdown-arrow').removeClass('icon-arrow-up').addClass('icon-arrow-down');
+				$this.addClass('active').find('ul').slideDown(300);
+				$arrow.removeClass('icon-arrow-down').addClass('icon-arrow-up');
+			}
+		});
+
+		// Add smooth animations and professional touches
+		$('#fh5co-offcanvas').on('click', 'ul li a:not(.offcanvas-has-dropdown > a)', function(){
+			// Add ripple effect only for non-dropdown links
+			var $this = $(this);
+			var ripple = $('<span class="ripple"></span>');
+			$this.append(ripple);
+			
+			setTimeout(function(){
+				ripple.remove();
+			}, 600);
+		});
+
+		// Enhanced search functionality
+		$('#fh5co-offcanvas .search input').on('focus', function(){
+			$(this).parent().addClass('focused');
+		}).on('blur', function(){
+			$(this).parent().removeClass('focused');
+		});
+
+		// Add loading state for search
+		$('#fh5co-offcanvas .search button').on('click', function(e){
+			e.preventDefault();
+			var $btn = $(this);
+			var $input = $btn.siblings('input');
+			
+			if ($input.val().trim()) {
+				$btn.html('<i class="icon-spinner2"></i>');
+				$btn.prop('disabled', true);
+				
+				// Simulate search (replace with actual search logic)
+				setTimeout(function(){
+					$btn.html('<i class="icon-search"></i>');
+					$btn.prop('disabled', false);
+					$input.val('');
+				}, 1500);
+			}
+		});
 
 		$(window).resize(function(){
-
 			if ( $('body').hasClass('offcanvas') ) {
-
     			$('body').removeClass('offcanvas');
     			$('.js-fh5co-nav-toggle').removeClass('active');
-				
 	    	}
 		});
 	};
@@ -68,20 +178,96 @@
 
 	var burgerMenu = function() {
 
-		$('body').on('click', '.js-fh5co-nav-toggle', function(event){
-			var $this = $(this);
-
+		// Function to close menu
+		function closeMenu() {
+			$('body').removeClass('overflow offcanvas');
+			$('.js-fh5co-nav-toggle').removeClass('active');
+			$('#fh5co-offcanvas ul li').removeClass('animate-in');
+			$('.offcanvas-has-dropdown.active').removeClass('active').find('ul').slideUp(200);
 			
+			// Ensure menu is hidden after closing
+			setTimeout(function() {
+				$('#fh5co-offcanvas').css('display', 'none');
+			}, 400); // Wait for transition to complete
+		}
+
+		// Function to open menu
+		function openMenu() {
+			$('body').addClass('overflow offcanvas');
+			$('.js-fh5co-nav-toggle').addClass('active');
+			
+			// Show menu immediately
+			$('#fh5co-offcanvas').css('display', 'block');
+			
+			// Animate menu items
+			setTimeout(function(){
+				$('#fh5co-offcanvas ul li').addClass('animate-in');
+			}, 100);
+		}
+
+		// Toggle menu on hamburger button click
+		$('body').on('click', '.js-fh5co-nav-toggle', function(event){
+			event.preventDefault();
+			event.stopPropagation();
 
 			if ( $('body').hasClass('overflow offcanvas') ) {
-				$('body').removeClass('overflow offcanvas');
+				closeMenu();
 			} else {
-				$('body').addClass('overflow offcanvas');
+				openMenu();
 			}
-			$this.toggleClass('active');
-			event.preventDefault();
-
 		});
+
+		// Close menu when clicking outside
+		$(document).on('click', function(e) {
+			if ($('body').hasClass('offcanvas')) {
+				if (!$(e.target).closest('#fh5co-offcanvas').length && 
+					!$(e.target).closest('.js-fh5co-nav-toggle').length) {
+					closeMenu();
+				}
+			}
+		});
+
+		// Close menu on escape key
+		$(document).on('keydown', function(e) {
+			if (e.keyCode === 27 && $('body').hasClass('offcanvas')) { // ESC key
+				closeMenu();
+			}
+		});
+
+		// Close menu when clicking on menu links (optional)
+		$('#fh5co-offcanvas').on('click', 'a:not(.offcanvas-has-dropdown > a):not(.offcanvas-has-dropdown ul li a)', function(e) {
+			// Only close if it's not a dropdown toggle or dropdown item
+			e.stopPropagation();
+			
+			if (!$(this).parent().hasClass('offcanvas-has-dropdown') && 
+				!$(this).closest('.offcanvas-has-dropdown').length) {
+				setTimeout(function() {
+					closeMenu();
+				}, 300);
+			}
+		});
+
+		// Prevent menu from closing when clicking inside it
+		$('#fh5co-offcanvas').on('click', function(e) {
+			e.stopPropagation();
+		});
+
+		// Prevent dropdown clicks from closing menu
+		$('#fh5co-offcanvas').on('click', '.offcanvas-has-dropdown', function(e) {
+			e.stopPropagation();
+		});
+
+		// Prevent dropdown submenu clicks from closing menu
+		$('#fh5co-offcanvas').on('click', '.offcanvas-has-dropdown ul li a', function(e) {
+			e.stopPropagation();
+		});
+
+		// Debug function (remove in production)
+		window.debugMenu = function() {
+			console.log('Menu state:', $('body').hasClass('offcanvas'));
+			console.log('Toggle state:', $('.js-fh5co-nav-toggle').hasClass('active'));
+			console.log('Menu visible:', $('#fh5co-offcanvas').is(':visible'));
+		};
 	};
 
 

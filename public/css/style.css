@@ -406,10 +406,20 @@ figure {
 }
 @media screen and (max-width: 480px) {
     #fh5co-hero .flexslider .slider-text>.slider-text-inner h2 {
-        font-size: 18px;
+        font-size: 20px;
     }
     #fh5co-hero .flexslider .slider-text>.slider-text-inner p {
         font-size: 12px;
+    }
+    #fh5co-hero .flexslider .slides li {
+        min-height: 308px;
+        max-height: 310px;
+        background-size: cover;
+    }
+    form.search-form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -615,17 +625,11 @@ figure {
     margin: 0;
     padding: 0;
     list-style: none;
-    display: -moz-inline-stack;
     display: inline-block;
-    zoom: 1;
-    *display: inline;
 }
 
 .fh5co-social-icons li a {
-    display: -moz-inline-stack;
     display: inline-block;
-    zoom: 1;
-    *display: inline;
     color: #d8692a;
     padding-left: 10px;
     padding-right: 10px;
@@ -653,13 +657,11 @@ figure {
     left: 0;
     top: .05em;
     font-family: 'icomoon';
-    speak: none;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -1067,10 +1069,7 @@ figure {
     width: 33.33%;
     text-align: center;
     list-style: none;
-    display: -moz-inline-stack;
     display: inline-block;
-    zoom: 1;
-    *display: inline;
 }
 
 .fh5co-tabs .fh5co-tab-nav li .icon {
@@ -1425,29 +1424,35 @@ figure {
 }
 
 #fh5co-offcanvas {
-    position: absolute;
-    z-index: 1901;
-    width: 270px;
-    background: black;
+    position: fixed;
+    z-index: 9999;
+    width: 320px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     top: 0;
     right: 0;
-    top: 0;
     bottom: 0;
-    padding: 45px 40px 40px 40px;
+    padding: 0;
     overflow-y: auto;
     display: none;
-    -moz-transform: translateX(270px);
-    -webkit-transform: translateX(270px);
-    -ms-transform: translateX(270px);
-    -o-transform: translateX(270px);
-    transform: translateX(270px);
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
+    -moz-transform: translateX(320px);
+    -webkit-transform: translateX(320px);
+    -ms-transform: translateX(320px);
+    -o-transform: translateX(320px);
+    transform: translateX(320px);
+    -webkit-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -o-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 @media screen and (max-width: 768px) {
     #fh5co-offcanvas {
+        display: none;
+    }
+    
+    /* Show menu only when offcanvas class is active */
+    .offcanvas #fh5co-offcanvas {
         display: block;
     }
 }
@@ -1461,141 +1466,448 @@ figure {
 }
 
 #fh5co-offcanvas a {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 #fh5co-offcanvas a:hover {
-    color: rgba(255, 255, 255, 0.8);
+    color: #d8692a;
+    transform: translateX(5px);
 }
 
-#fh5co-offcanvas ul {
-    padding: 0;
+/* Mobile Menu Header */
+#fh5co-offcanvas .mobile-menu-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: linear-gradient(135deg, #d8692a 0%, #b8561f 100%);
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#fh5co-offcanvas .mobile-menu-header h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Montserrat", Arial, sans-serif;
     margin: 0;
+    letter-spacing: 0.5px;
 }
 
-#fh5co-offcanvas ul li {
+/* Mobile Menu Content */
+#fh5co-offcanvas .mobile-menu-content {
+    padding: 25px;
+}
+
+/* Precise Menu Item Styling */
+#fh5co-offcanvas ul {
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
+#fh5co-offcanvas ul li {
+    margin: 0 0 8px 0;
+    padding: 0;
+    list-style: none;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.3s ease;
+}
+
+#fh5co-offcanvas ul li.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#fh5co-offcanvas ul li:last-child {
+    margin-bottom: 0;
+}
+
 #fh5co-offcanvas ul li.search {
     float: left;
     width: 100%;
-    font-family: "Playfair Display", serif;
+    font-family: "Montserrat", Arial, sans-serif;
     -webkit-transition: 0.3s;
     -o-transition: 0.3s;
     transition: 0.3s;
     padding: 0;
-    margin: 5px 0 0 0;
+    margin: 0 0 25px 0;
+    border-bottom: 2px solid rgba(216, 105, 42, 0.3);
+    padding-bottom: 20px;
 }
 
 #fh5co-offcanvas ul li input[type=text] {
-    padding: 6px 10px;
+    padding: 12px 15px;
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
     float: right;
-    font-size: 13px;
-    margin-top: 4px;
-    background: transparent;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
+    font-size: 14px;
+    margin-top: 0;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 #fh5co-offcanvas ul li input[type=text]:focus {
     width: 100%;
     outline: none;
+    border-color: #d8692a;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(216, 105, 42, 0.3);
+}
+
+#fh5co-offcanvas ul li input[type=text]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 #fh5co-offcanvas ul li button {
-    margin-top: 4px;
-    padding: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-left: 1px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #d8692a;
+    border: none;
+    border-radius: 50%;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #fh5co-offcanvas ul li button i {
-    color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+    font-size: 16px;
 }
 
 #fh5co-offcanvas ul li button:hover,
 #fh5co-offcanvas ul li button:focus {
-    background: transparent !important;
+    background: #b8561f !important;
+    transform: scale(1.1);
 }
 
 #fh5co-offcanvas ul li button:hover i,
 #fh5co-offcanvas ul li button:focus i {
-    color: white;
+    color: #fff;
 }
 
 #fh5co-offcanvas ul li.shopping-cart {
     float: left;
+    margin-top: 20px;
 }
 
 #fh5co-offcanvas ul li a.cart {
-    display: block;
-    margin-top: 30px;
-    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+#fh5co-offcanvas ul li a.cart:hover {
+    background: #d8692a;
+    color: #fff;
+    transform: translateX(5px);
+    border-color: #d8692a;
 }
 
 #fh5co-offcanvas ul li a.cart span {
     position: relative;
+    margin-right: 10px;
 }
 
 #fh5co-offcanvas ul li a.cart span small {
     position: absolute;
-    top: -20px;
-    right: -15px;
-    padding: 10px 6px;
-    line-height: 0;
-    font-size: 11px;
-    background: #d8692a;
+    top: -8px;
+    right: -8px;
+    padding: 4px 8px;
+    line-height: 1;
+    font-size: 10px;
+    background: #ff4757;
     color: white;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
     border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Mobile Menu Bottom Row - Cart and Login */
+@media screen and (max-width: 768px) {
+    /* Create a container for cart and login */
+    #fh5co-offcanvas .mobile-menu-bottom {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+        padding: 0;
+    }
+    
+    /* Cart and Login in single row */
+    #fh5co-offcanvas ul li.shopping-cart,
+    #fh5co-offcanvas ul li.login-btn-wrapper {
+        flex: 1;
+        margin: 0;
+        padding: 0;
+        float: none;
+        width: auto;
+    }
+    
+    /* Cart Button Styling */
+    #fh5co-offcanvas ul li.shopping-cart a.cart {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin: 0;
+    }
+    
+    #fh5co-offcanvas ul li.shopping-cart a.cart:hover {
+        background: #d8692a;
+        color: #fff;
+        transform: translateY(-2px);
+        border-color: #d8692a;
+        box-shadow: 0 4px 12px rgba(216, 105, 42, 0.3);
+    }
+    
+    #fh5co-offcanvas ul li.shopping-cart a.cart span {
+        position: relative;
+        margin-right: 8px;
+    }
+    
+    #fh5co-offcanvas ul li.shopping-cart a.cart span small {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        padding: 4px 8px;
+        line-height: 1;
+        font-size: 10px;
+        background: #ff4757;
+        color: white;
+        border-radius: 50%;
+        min-width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    
+    /* Login Button Styling */
+    #fh5co-offcanvas ul li.login-btn-wrapper a.login-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 15px;
+        background: linear-gradient(135deg, #d8692a 0%, #b8561f 100%);
+        color: #fff !important;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(216, 105, 42, 0.3);
+        border: none;
+        text-decoration: none;
+        gap: 6px;
+        width: 100%;
+        margin: 0;
+    }
+    
+    #fh5co-offcanvas ul li.login-btn-wrapper a.login-btn:hover {
+        background: linear-gradient(135deg, #b8561f 0%, #9a4a1a 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(216, 105, 42, 0.4);
+        color: #fff !important;
+    }
+    
+    #fh5co-offcanvas ul li.login-btn-wrapper a.login-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(216, 105, 42, 0.3);
+    }
+    
+    #fh5co-offcanvas ul li.login-btn-wrapper a.login-btn i {
+        font-size: 16px;
+    }
 }
 
 #fh5co-offcanvas ul li>ul {
-    padding-left: 20px;
+    padding: 0;
+    margin: 8px 0 0 0;
     display: none;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 8px 0;
+    border-left: 3px solid #d8692a;
 }
 
-#fh5co-offcanvas ul li.offcanvas-has-dropdown>a {
+#fh5co-offcanvas ul li>ul li {
+    margin: 0;
+    padding: 0;
+}
+
+#fh5co-offcanvas ul li>ul li a {
     display: block;
+    padding: 12px 20px 12px 35px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
     position: relative;
 }
 
-#fh5co-offcanvas ul li.offcanvas-has-dropdown>a:after {
+#fh5co-offcanvas ul li>ul li a:hover {
+    background: rgba(216, 105, 42, 0.1);
+    color: #d8692a;
+    transform: translateX(5px);
+}
+
+#fh5co-offcanvas ul li>ul li a:before {
+    content: '';
     position: absolute;
-    right: 0px;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: #d8692a;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+#fh5co-offcanvas ul li>ul li a:hover:before {
+    opacity: 1;
+}
+
+#fh5co-offcanvas ul li.offcanvas-has-dropdown>a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+#fh5co-offcanvas ul li.offcanvas-has-dropdown>a:hover {
+    background: rgba(216, 105, 42, 0.15);
+    border-color: rgba(216, 105, 42, 0.4);
+    transform: translateX(8px);
+    color: #d8692a;
+    box-shadow: 0 4px 15px rgba(216, 105, 42, 0.2);
+}
+
+#fh5co-offcanvas ul li.offcanvas-has-dropdown>a:after {
+    position: static;
     font-family: 'icomoon';
-    speak: none;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     content: "\e921";
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.2);
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    display: inline-block;
 }
 
 #fh5co-offcanvas ul li.offcanvas-has-dropdown.active a:after {
-    -webkit-transform: rotate(-180deg);
-    -moz-transform: rotate(-180deg);
-    -ms-transform: rotate(-180deg);
-    -o-transform: rotate(-180deg);
     transform: rotate(-180deg);
+    color: #fff;
+}
+
+#fh5co-offcanvas ul li.offcanvas-has-dropdown.active>a {
+    background: rgba(216, 105, 42, 0.15);
+    border-color: rgba(216, 105, 42, 0.4);
+}
+
+/* Dropdown Arrow Styling */
+#fh5co-offcanvas .dropdown-arrow {
+    float: right;
+    margin-left: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    line-height: 1;
+    display: inline-block;
+}
+
+#fh5co-offcanvas .dropdown-arrow.icon-arrow-down:before {
+    content: "\e921";
+    font-family: 'icomoon';
+}
+
+#fh5co-offcanvas .dropdown-arrow.icon-arrow-up:before {
+    content: "\e921";
+    font-family: 'icomoon';
+    transform: rotate(180deg);
+    display: inline-block;
+}
+
+#fh5co-offcanvas ul li.offcanvas-has-dropdown.active .dropdown-arrow {
+    color: #fff;
+}
+
+/* Precise Menu Item Links */
+#fh5co-offcanvas ul li:not(.search):not(.shopping-cart):not(.offcanvas-has-dropdown)>a {
+    display: block;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+#fh5co-offcanvas ul li:not(.search):not(.shopping-cart):not(.offcanvas-has-dropdown)>a:hover {
+    background: rgba(216, 105, 42, 0.15);
+    border-color: rgba(216, 105, 42, 0.4);
+    transform: translateX(8px);
+    color: #d8692a;
+    box-shadow: 0 4px 15px rgba(216, 105, 42, 0.2);
 }
 
 .uppercase {
@@ -1650,15 +1962,38 @@ figure {
 }
 
 .fh5co-nav-toggle {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    text-decoration: none;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 10001;
+    padding: 12px;
+    display: block;
+    margin: 0 auto;
+    display: none;
+    height: 50px;
+    width: 50px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(216, 105, 42, 0.2);
+    transition: all 0.3s ease;
+}
+
+.fh5co-nav-toggle:hover {
+    background: rgba(216, 105, 42, 0.1);
+    border-color: rgba(216, 105, 42, 0.4);
+    transform: scale(1.05);
+}
+
+.fh5co-nav-toggle.active {
+    background: rgba(216, 105, 42, 0.9);
+    border-color: #d8692a;
 }
 
 .fh5co-nav-toggle.active i::before,
 .fh5co-nav-toggle.active i::after {
-    background: #444;
+    background: #fff;
 }
 
 .fh5co-nav-toggle:hover,
@@ -1671,51 +2006,51 @@ figure {
 .fh5co-nav-toggle i {
     position: relative;
     display: inline-block;
-    width: 25px;
+    width: 20px;
     height: 2px;
     color: #252525;
     font: bold 14px/.4 Helvetica;
     text-transform: uppercase;
     text-indent: -55px;
     background: #252525;
-    transition: all .2s ease-out;
+    transition: all .3s ease;
 }
 
 .fh5co-nav-toggle i::before,
 .fh5co-nav-toggle i::after {
     content: '';
-    width: 25px;
+    width: 20px;
     height: 2px;
     background: #252525;
     position: absolute;
     left: 0;
-    transition: all .2s ease-out;
+    transition: all .3s ease;
 }
 
 .fh5co-nav-toggle.fh5co-nav-white>i {
-    color: #fff;
-    background: #000;
+    color: #d8692a;
+    background: #d8692a;
 }
 
 .fh5co-nav-toggle.fh5co-nav-white>i::before,
 .fh5co-nav-toggle.fh5co-nav-white>i::after {
-    background: #000;
+    background: #d8692a;
 }
 
 .fh5co-nav-toggle i::before {
-    top: -7px;
+    top: -6px;
 }
 
 .fh5co-nav-toggle i::after {
-    bottom: -7px;
+    bottom: -6px;
 }
 
 .fh5co-nav-toggle:hover i::before {
-    top: -10px;
+    top: -8px;
 }
 
 .fh5co-nav-toggle:hover i::after {
-    bottom: -10px;
+    bottom: -8px;
 }
 
 .fh5co-nav-toggle.active i {
@@ -1725,42 +2060,213 @@ figure {
 .fh5co-nav-toggle.active i::before {
     background: #fff;
     top: 0;
-    -webkit-transform: rotateZ(45deg);
-    -moz-transform: rotateZ(45deg);
-    -ms-transform: rotateZ(45deg);
-    -o-transform: rotateZ(45deg);
     transform: rotateZ(45deg);
 }
 
 .fh5co-nav-toggle.active i::after {
     background: #fff;
     bottom: 0;
-    -webkit-transform: rotateZ(-45deg);
-    -moz-transform: rotateZ(-45deg);
-    -ms-transform: rotateZ(-45deg);
-    -o-transform: rotateZ(-45deg);
     transform: rotateZ(-45deg);
-}
-
-.fh5co-nav-toggle {
-    position: absolute;
-    right: 0px;
-    top: 10px;
-    z-index: 21;
-    padding: 6px 0 0 0;
-    display: block;
-    margin: 0 auto;
-    display: none;
-    height: 44px;
-    width: 44px;
-    z-index: 2001;
-    border-bottom: none !important;
 }
 
 @media screen and (max-width: 768px) {
     .fh5co-nav-toggle {
         display: block;
     }
+    
+    /* Enhanced mobile navbar styling */
+    .fh5co-nav {
+        padding: 15px 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .fh5co-nav #fh5co-logo img {
+        max-height: 40px;
+    }
+    
+    /* Mobile menu overlay enhancement */
+    .offcanvas #page:after {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+    }
+    
+    /* Mobile menu animations */
+    #fh5co-offcanvas ul li {
+        animation-delay: calc(var(--item-index) * 0.1s);
+    }
+    
+    #fh5co-offcanvas ul li:nth-child(1) { --item-index: 1; }
+    #fh5co-offcanvas ul li:nth-child(2) { --item-index: 2; }
+    #fh5co-offcanvas ul li:nth-child(3) { --item-index: 3; }
+    #fh5co-offcanvas ul li:nth-child(4) { --item-index: 4; }
+    #fh5co-offcanvas ul li:nth-child(5) { --item-index: 5; }
+    #fh5co-offcanvas ul li:nth-child(6) { --item-index: 6; }
+    #fh5co-offcanvas ul li:nth-child(7) { --item-index: 7; }
+    #fh5co-offcanvas ul li:nth-child(8) { --item-index: 8; }
+}
+
+/* Additional mobile enhancements */
+@media screen and (max-width: 480px) {
+    #fh5co-offcanvas {
+        width: 100%;
+        padding: 80px 20px 30px 20px;
+    }
+    
+    .fh5co-nav-toggle {
+        right: 15px;
+        top: 15px;
+        height: 45px;
+        width: 45px;
+        padding: 10px;
+    }
+    
+    .fh5co-nav #fh5co-logo img {
+        max-height: 35px;
+    }
+    
+    #fh5co-offcanvas ul li:not(.search):not(.shopping-cart):not(.offcanvas-has-dropdown)>a {
+        padding: 12px 15px;
+        font-size: 15px;
+    }
+    
+    #fh5co-offcanvas ul li.offcanvas-has-dropdown>a {
+        padding: 12px 15px;
+        font-size: 15px;
+    }
+}
+
+/* Ripple effect for mobile menu */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Enhanced search focus state */
+#fh5co-offcanvas .search.focused input {
+    border-color: #d8692a;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(216, 105, 42, 0.4);
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.icon-spinner2 {
+    animation: spin 1s linear infinite;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Enhanced mobile menu animations */
+#fh5co-offcanvas ul li {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: slideInRight 0.5s ease forwards;
+}
+
+#fh5co-offcanvas ul li:nth-child(1) { animation-delay: 0.1s; }
+#fh5co-offcanvas ul li:nth-child(2) { animation-delay: 0.2s; }
+#fh5co-offcanvas ul li:nth-child(3) { animation-delay: 0.3s; }
+#fh5co-offcanvas ul li:nth-child(4) { animation-delay: 0.4s; }
+#fh5co-offcanvas ul li:nth-child(5) { animation-delay: 0.5s; }
+#fh5co-offcanvas ul li:nth-child(6) { animation-delay: 0.6s; }
+#fh5co-offcanvas ul li:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes slideInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Professional mobile menu backdrop */
+.offcanvas #page:after {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+/* Ensure menu closes properly */
+.offcanvas #fh5co-offcanvas {
+    transform: translateX(0px);
+    display: block;
+}
+
+/* Hide menu when not in offcanvas state */
+#fh5co-offcanvas {
+    display: none;
+}
+
+/* Show menu only on mobile when offcanvas is active */
+@media screen and (max-width: 768px) {
+    .offcanvas #fh5co-offcanvas {
+        display: block;
+    }
+}
+
+/* Menu item click feedback */
+#fh5co-offcanvas ul li a {
+    position: relative;
+    overflow: hidden;
+}
+
+#fh5co-offcanvas ul li a:active {
+    transform: scale(0.98);
+}
+
+/* Prevent body scroll when menu is open */
+body.offcanvas {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Smooth menu transitions */
+#fh5co-offcanvas {
+    will-change: transform;
+}
+
+/* Close button animation */
+.mobile-menu-close {
+    will-change: transform;
+}
+
+/* Enhanced mobile menu scrollbar */
+#fh5co-offcanvas::-webkit-scrollbar {
+    width: 6px;
+}
+
+#fh5co-offcanvas::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+#fh5co-offcanvas::-webkit-scrollbar-thumb {
+    background: rgba(216, 105, 42, 0.6);
+    border-radius: 3px;
+}
+
+#fh5co-offcanvas::-webkit-scrollbar-thumb:hover {
+    background: rgba(216, 105, 42, 0.8);
 }
 
 .btn {

@@ -5,7 +5,7 @@
     <aside id="fh5co-hero" class="js-fullheight">
         <div class="flexslider js-fullheight">
             <ul class="slides">
-                <li style="background-image: url(images/img_bg_1.jpg);">
+                <li style="background-image: url(images/electrician.jpg);">
                     <div class="overlay-gradient"></div>
                     <div class="container">
                         <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </li>
-                <li style="background-image: url(images/img_bg_2.jpg);">
+                <li style="background-image: url(images/plumber.jpg);">
                     <div class="container">
                         <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
                             <div class="slider-text-inner">
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </li>
-                <li style="background-image: url(images/img_bg_3.jpg);">
+                <li style="background-image: url(images/carpenter.jpg);">
                     <div class="container">
                         <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
                             <div class="slider-text-inner">
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </li>
-                <li style="background-image: url(images/img_bg_4.jpg);">
+                <li style="background-image: url(images/car wash.jpg);">
                     <div class="container">
                         <div class="col-md-5 col-md-offset-2 col-md-pull-2 js-fullheight slider-text">
                             <div class="slider-text-inner">
@@ -97,39 +97,32 @@
                 <!-- Card 1 -->
                 <div class="item">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('images/card1.webp') }}" class="img-responsive" alt="Service 1">
+                        <img src="{{ asset('images/img_bg_1.jpg') }}" class="img-responsive" alt="Service 1">
                     </div>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="item">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('images/card2.webp') }}" class="img-responsive" alt="Service 2">
+                        <img src="{{ asset('images/img_bg_2.jpg') }}" class="img-responsive" alt="Service 2">
                     </div>
                 </div>
 
                 <div class="item">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('images/card3.webp') }}" class="img-responsive" alt="Service 3">
+                        <img src="{{ asset('images/img_bg_3.jpg') }}" class="img-responsive" alt="Service 3">
                     </div>
                 </div>
 
                 <div class="item">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('images/card4.webp') }}" class="img-responsive" alt="Service 4">
+                        <img src="{{ asset('images/img_bg_4.jpg') }}" class="img-responsive" alt="Service 4">
                     </div>
                 </div>
 
                 <div class="item">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('images/card5.webp') }}" class="img-responsive" alt="Service 5">
-                    </div>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="item">
-                    <div class="card shadow-sm">
-                        <img src="{{ asset('images/card6.webp') }}" class="img-responsive" alt="Service 6">
+                        <img src="{{ asset('images/img_bg_5.jpg') }}" class="img-responsive" alt="Service 5">
                     </div>
                 </div>
                 {{-- <button class="custom-owl-prev">
@@ -153,22 +146,25 @@
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                     <span>Cool Stuff</span>
                     <h2>Products.</h2>
-                    <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem
-                        provident. Odit ab aliquam dolor eius.</p>
+                    <p>The HandyVibe website offers repair and maintenance services for household appliances such as
+                        refrigerators, washing machines, air conditioners, microwaves, geysers, etc..</p>
                 </div>
             </div>
             <div class="row">
                 @forelse($featuredProducts as $product)
                     <div class="col-md-4 text-center animate-box">
                         <div class="product">
-                            <div class="product-grid" style="background-image:url({{ asset($product->featured_image ? 'storage/' . $product->featured_image : 'images/product-1.jpg') }});">
+                            <div class="product-grid"
+                                style="background-image:url({{ asset($product->featured_image ? 'storage/' . $product->featured_image : 'images/product-1.jpg') }});">
                                 @if($product->isOnSale())
                                     <span class="sale">Sale</span>
                                 @endif
                                 <div class="inner">
                                     <p>
-                                        <a href="{{ route('product.show', $product) }}" class="icon"><i class="icon-shopping-cart"></i></a>
-                                        <a href="{{ route('product.show', $product) }}" class="icon"><i class="icon-eye"></i></a>
+                                        <a href="{{ route('product.show', $product) }}" class="icon"><i
+                                                class="icon-shopping-cart"></i></a>
+                                        <a href="{{ route('product.show', $product) }}" class="icon"><i
+                                                class="icon-eye"></i></a>
                                     </p>
                                 </div>
                             </div>
@@ -352,12 +348,12 @@
             font-size: 14px;
             margin-right: 8px;
         }
-        
+
         .current-price {
             color: #e74c3c;
             font-weight: bold;
         }
-        
+
         .discount {
             background: #e74c3c;
             color: white;
@@ -366,7 +362,7 @@
             font-size: 10px;
             margin-left: 8px;
         }
-        
+
         .product .desc .price {
             display: flex;
             align-items: center;
